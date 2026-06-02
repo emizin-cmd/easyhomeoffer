@@ -1,0 +1,10 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Easy Home Offer">
+  <!-- Top-left roof: medium dark navy blue -->
+  <polygon points="32,4 4,30 32,30" fill="#1d3554" />
+  <!-- Top-right roof: near-black navy -->
+  <polygon points="32,4 60,30 32,30" fill="#0c1a35" />
+  <!-- Bottom-left body: mid sky blue -->
+  <rect x="4" y="30" width="28" height="30" fill="#5aa1ec" />
+  <!-- Bottom-right body: vivid blue -->
+  <rect x="32" y="30" width="28" height="30" fill="#2b7fff" />
+</svg>
