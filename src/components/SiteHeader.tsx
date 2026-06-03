@@ -83,7 +83,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href={`tel:${PHONE_TEL}`}
-            className="hidden items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background transition hover:opacity-90 sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-[#f97316] px-4 py-2 text-sm font-semibold text-background transition hover:opacity-90 sm:inline-flex md:bg-foreground"
           >
             <Phone className="h-4 w-4" />
             {PHONE_DISPLAY}

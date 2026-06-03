@@ -17,7 +17,7 @@ export function SiteFooter() {
             .getElementById("offer")
             ?.scrollIntoView({ behavior: "smooth", block: "center" })
         }
-        className="fixed bottom-8 right-8 z-50 hidden items-center rounded-full bg-[#0b132a] px-5 py-3 text-sm font-semibold text-white shadow-xl ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:bg-[#111c3d] hover:shadow-2xl active:translate-y-0 md:inline-flex"
+        className="fixed bottom-8 right-8 z-50 hidden items-center rounded-full bg-[#0b132a] px-5 py-3 text-sm font-semibold text-white shadow-xl ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:bg-[#111c3d] hover:shadow-2xl active:translate-y-0 md:inline-flex md:bg-[#f97316] md:hover:bg-[#ea580c] md:ring-[#fb923c]/30"
       >
         Get Cash Offer
       </button>
@@ -26,7 +26,7 @@ export function SiteFooter() {
       <a
         href={`tel:${PHONE_TEL}`}
         aria-label={`Call us at ${PHONE_DISPLAY}`}
-        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2.5 rounded-full bg-primary py-2 pl-5 pr-2 text-primary-foreground shadow-lg ring-4 ring-primary/20 transition hover:scale-105 hover:shadow-xl active:scale-95 md:hidden"
+        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2.5 rounded-full bg-[#f97316] py-2 pl-5 pr-2 text-primary-foreground shadow-lg ring-4 ring-[#f97316]/20 transition hover:scale-105 hover:shadow-xl active:scale-95 md:hidden"
       >
         <span className="text-sm font-semibold tracking-tight">{PHONE_DISPLAY}</span>
         <span
@@ -113,7 +113,11 @@ export function SiteFooter() {
                 {PHONE_DISPLAY}
               </a>
             </li>
-            <li>Maple Grove, Minnesota</li>
+            <li>
+              4820 Minnetonka Blvd, Suite 300
+              <br />
+              Minneapolis, MN 55416
+            </li>
             <li>Mon–Sat · 8am–7pm CT</li>
           </ul>
         </div>

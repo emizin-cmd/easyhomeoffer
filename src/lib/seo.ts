@@ -68,8 +68,10 @@ export const LOCAL_BUSINESS_JSON_LD = JSON.stringify({
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Maple Grove",
+    streetAddress: "4820 Minnetonka Blvd, Suite 300",
+    addressLocality: "Minneapolis",
     addressRegion: "MN",
+    postalCode: "55416",
     addressCountry: "US",
   },
   areaServed: [
