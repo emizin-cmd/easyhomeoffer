@@ -10,6 +10,14 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as
   | string
   | undefined;
 
+// Zapier "Webhooks by Zapier" Catch Hook URL. POSTs the form payload as JSON
+// when validation passes. Set in `.env.local`:
+//   VITE_ZAPIER_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/.../.../
+// If unset, the form still works — the webhook step is silently skipped.
+const ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL as
+  | string
+  | undefined;
+
 type FieldKey = "firstName" | "lastName" | "email" | "phone" | "address" | "details";
 
 type FormValues = Record<FieldKey, string>;
@@ -83,6 +91,9 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
   // Records the last formatted_address Google handed back, used only at
   // submit time. Ref (not state) → no re-renders triggered by Maps activity.
   const lastVerifiedAddressRef = React.useRef<string>("");
+  // Guards against double-submission while the Zapier webhook is in flight.
+  // Ref (not state) → no re-render to disable the button visually.
+  const submittingRef = React.useRef(false);
 
   // Attach Google Places Autocomplete to the address input. Run once.
   // Defensive guards: DOM-level dataset flag, cancel flag, try/catch,
@@ -163,8 +174,9 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
       }
     };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submittingRef.current) return; // ignore rapid double-clicks while a request is in flight
     // Address is "Google-verified" only when its current value matches the
     // formatted_address from the user's last dropdown pick. Manual typing
     // after a pick invalidates this → forces re-selection.
@@ -183,6 +195,33 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
       return;
     }
     setErrors({});
+
+    // POST to Zapier. Silent on failure — the user always sees the success message
+    // regardless of webhook health (we don't want to gate UX on a third-party hook).
+    submittingRef.current = true;
+    if (ZAPIER_WEBHOOK_URL) {
+      try {
+        await fetch(ZAPIER_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: values.firstName.trim(),
+            lastName: values.lastName.trim(),
+            email: values.email.trim(),
+            phone: values.phone.trim(),
+            address: values.address.trim(),
+            details: values.details.trim(),
+            submittedAt: new Date().toISOString(),
+            source: typeof window !== "undefined" ? window.location.href : "",
+          }),
+        });
+      } catch (err) {
+        // Swallow — Zapier failures must not block the conversion.
+        console.warn("[LeadForm] Zapier webhook failed:", err);
+      }
+    }
+    submittingRef.current = false;
+
     alert("Thanks! We'll be in touch within 24 hours.");
   };
 
