@@ -12,12 +12,14 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as
   | undefined;
 
 // Zapier "Webhooks by Zapier" Catch Hook URL. POSTs the form payload as JSON
-// when validation passes. Set in `.env.local`:
-//   VITE_ZAPIER_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/.../.../
-// If unset, the form still works — the webhook step is silently skipped.
-const ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL as
-  | string
-  | undefined;
+// when validation passes.
+//
+// HARDCODED diagnostic — bypasses Vercel env var propagation delays so we can
+// confirm the URL the browser actually hits in production. The trailing slash
+// is REQUIRED: without it Zapier 301-redirects, and browsers block CORS
+// preflight (OPTIONS) requests that follow redirects, producing a misleading
+// "CORS error" with zero data delivered.
+const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/25441755/4bz0ar0/";
 
 type FieldKey = "firstName" | "lastName" | "email" | "phone" | "address" | "details";
 
@@ -198,42 +200,40 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
     }
     setErrors({});
 
-    // POST to Zapier. Silent on failure — the user always sees the success message
-    // regardless of webhook health (we don't want to gate UX on a third-party hook).
-    // Uses the exact structure Zapier expects: Content-Type: application/json,
-    // POST, plain JSON body. NO `mode: 'no-cors'` (that strips Content-Type and
-    // makes Zapier receive an empty/unreadable body).
+    // POST to Zapier. URL is hardcoded above with the mandatory trailing slash —
+    // bypasses Vercel env var propagation delays. Headers are strictly
+    // { "Content-Type": "application/json" } per Zapier's documented contract.
+    // NO `mode: 'no-cors'` (that strips Content-Type and breaks Zapier).
+    // NO additional headers (avoids unnecessary preflight complexity).
     submittingRef.current = true;
-    if (ZAPIER_WEBHOOK_URL) {
-      try {
-        const response = await fetch(ZAPIER_WEBHOOK_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firstName: values.firstName.trim(),
-            lastName: values.lastName.trim(),
-            email: values.email.trim(),
-            phone: values.phone.trim(),
-            address: values.address.trim(),
-            details: values.details.trim(),
-            source: typeof window !== "undefined" ? window.location.href : "",
-          }),
-        });
-        // fetch() does NOT reject on 4xx/5xx — only on network errors. Explicitly
-        // log non-2xx so a paused/misconfigured Zap is visible in DevTools console.
-        if (!response.ok) {
-          console.warn(
-            "[LeadForm] Zapier returned non-success status:",
-            response.status,
-            response.statusText,
-          );
-        }
-      } catch (err) {
-        // Swallow — Zapier failures must not block the conversion.
-        console.warn("[LeadForm] Zapier webhook failed:", err);
+    try {
+      const response = await fetch(ZAPIER_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: values.firstName.trim(),
+          lastName: values.lastName.trim(),
+          email: values.email.trim(),
+          phone: values.phone.trim(),
+          address: values.address.trim(),
+          details: values.details.trim(),
+          source: typeof window !== "undefined" ? window.location.href : "",
+        }),
+      });
+      // fetch() does NOT reject on 4xx/5xx — only on network errors. Explicitly
+      // log non-2xx so a paused/misconfigured Zap is visible in DevTools console.
+      if (!response.ok) {
+        console.warn(
+          "[LeadForm] Zapier returned non-success status:",
+          response.status,
+          response.statusText,
+        );
       }
+    } catch (err) {
+      // Swallow — Zapier failures must not block the conversion.
+      console.warn("[LeadForm] Zapier webhook failed:", err);
     }
     submittingRef.current = false;
 
