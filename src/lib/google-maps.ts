@@ -117,6 +117,11 @@ export function loadGoogleMapsPlaces(apiKey: string): Promise<GoogleMapsGlobal> 
       `?key=${encodeURIComponent(apiKey)}` +
       `&libraries=places` +
       `&v=weekly` +
+      // Force English UI + US region bias. Without `language=en`, Google localizes
+      // address suggestions to the browser's Accept-Language header — producing
+      // Russian/Cyrillic transliterations for users with non-English locales.
+      `&language=en` +
+      `&region=US` +
       `&callback=${callbackName}`;
     script.async = true;
     script.defer = true;
