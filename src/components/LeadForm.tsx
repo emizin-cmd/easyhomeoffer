@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 import * as React from "react";
 import {
   loadGoogleMapsPlaces,
@@ -74,6 +75,7 @@ function validate(values: FormValues, addressVerified: boolean): FieldErrors {
 
 export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" }) {
   const isGlass = variant === "glass";
+  const navigate = useNavigate();
 
   const [values, setValues] = React.useState<FormValues>({
     firstName: "",
@@ -222,7 +224,9 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
     }
     submittingRef.current = false;
 
-    alert("Thanks! We'll be in touch within 24 hours.");
+    // Redirect to /thank-you AFTER the webhook fetch has resolved (success or caught error).
+    // This guarantees no lead data is cut short by an early navigation.
+    navigate({ to: "/thank-you" });
   };
 
   // Base input styling, minus the border-color tokens (those swap on error).

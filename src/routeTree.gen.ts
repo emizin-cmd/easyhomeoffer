@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as TermsConditionsRouteImport } from './routes/terms-conditions'
 import { Route as SellYourHouseRouteImport } from './routes/sell-your-house'
@@ -21,6 +22,11 @@ import { Route as CompareRouteImport } from './routes/compare'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TestimonialsRoute = TestimonialsRouteImport.update({
   id: '/testimonials',
   path: '/testimonials',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/sell-your-house': typeof SellYourHouseRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
+  '/thank-you': typeof ThankYouRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/sell-your-house': typeof SellYourHouseRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
+  '/thank-you': typeof ThankYouRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/sell-your-house': typeof SellYourHouseRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
+  '/thank-you': typeof ThankYouRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/sell-your-house'
     | '/terms-conditions'
     | '/testimonials'
+    | '/thank-you'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/sell-your-house'
     | '/terms-conditions'
     | '/testimonials'
+    | '/thank-you'
   id:
     | '__root__'
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/sell-your-house'
     | '/terms-conditions'
     | '/testimonials'
+    | '/thank-you'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -171,10 +183,18 @@ export interface RootRouteChildren {
   SellYourHouseRoute: typeof SellYourHouseRoute
   TermsConditionsRoute: typeof TermsConditionsRoute
   TestimonialsRoute: typeof TestimonialsRoute
+  ThankYouRoute: typeof ThankYouRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/testimonials': {
       id: '/testimonials'
       path: '/testimonials'
@@ -267,6 +287,7 @@ const rootRouteChildren: RootRouteChildren = {
   SellYourHouseRoute: SellYourHouseRoute,
   TermsConditionsRoute: TermsConditionsRoute,
   TestimonialsRoute: TestimonialsRoute,
+  ThankYouRoute: ThankYouRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
