@@ -1,6 +1,13 @@
 /**
  * Singleton Google Maps Places JS API loader.
  *
+ * Uses Google's `callback` query parameter so we're notified ONLY after
+ * `places` (and any other libraries) are fully attached to `window.google.maps`.
+ * Previously this used `loading=async` + a script-tag `onload` listener, which
+ * caused: "Google Maps loaded but `places` library is missing" — the script
+ * resolves before secondary libraries finish under the new `loading=async`
+ * loader contract (https://developers.google.com/maps/documentation/javascript/load-maps-js-api).
+ *
  * - SSR-safe (rejects on the server)
  * - Single in-flight promise (multiple callers don't trigger multiple script tags)
  * - destroyAutocomplete() fully tears down a Places.Autocomplete instance
@@ -48,29 +55,74 @@ export function loadGoogleMapsPlaces(apiKey: string): Promise<GoogleMapsGlobal> 
   if (typeof window === "undefined") {
     return Promise.reject(new Error("Google Maps cannot load during SSR"));
   }
+  // Already loaded with places library attached — short-circuit.
   if (window.google?.maps?.places) {
     return Promise.resolve(window.google);
   }
   if (loaderPromise) return loaderPromise;
 
   loaderPromise = new Promise<GoogleMapsGlobal>((resolve, reject) => {
-    const existing = document.querySelector<HTMLScriptElement>('script[data-gmaps="1"]');
-    const ready = () => {
-      if (window.google?.maps?.places) resolve(window.google);
-      else reject(new Error("Google Maps loaded but `places` library is missing"));
+    // Unique global callback name — Google calls this after the script + libraries load.
+    const callbackName = `__gmapsReady_${Math.random().toString(36).slice(2, 11)}`;
+    const cleanupCallback = () => {
+      try {
+        delete (window as unknown as Record<string, unknown>)[callbackName];
+      } catch {
+        /* ignore */
+      }
     };
+
+    (window as unknown as Record<string, () => void>)[callbackName] = () => {
+      cleanupCallback();
+      if (window.google?.maps?.places) {
+        resolve(window.google);
+      } else {
+        // Defensive — shouldn't happen with `callback=` URL param, but if Google's
+        // contract ever changes again, surface a clear error instead of hanging.
+        loaderPromise = null;
+        reject(new Error("Google Maps callback fired but `places` is missing"));
+      }
+    };
+
+    // If another loader already injected the script (e.g. an HMR remount), reuse it.
+    // Wait for `places` to appear with a polling fallback so we don't deadlock if the
+    // existing script's callback was a different name.
+    const existing = document.querySelector<HTMLScriptElement>('script[data-gmaps="1"]');
     if (existing) {
-      existing.addEventListener("load", ready);
-      existing.addEventListener("error", () => reject(new Error("Google Maps script error")));
+      let elapsed = 0;
+      const poll = window.setInterval(() => {
+        if (window.google?.maps?.places) {
+          window.clearInterval(poll);
+          cleanupCallback();
+          resolve(window.google);
+        } else if ((elapsed += 100) > 10_000) {
+          window.clearInterval(poll);
+          cleanupCallback();
+          loaderPromise = null;
+          reject(new Error("Existing Google Maps script never finished loading `places`"));
+        }
+      }, 100);
       return;
     }
+
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places&v=weekly&loading=async`;
+    // NOTE: we deliberately do NOT use `loading=async` here. With `loading=async`,
+    // Google's loader contract requires `await google.maps.importLibrary('places')`
+    // instead of attaching libraries from the URL — and our code consumes
+    // `window.google.maps.places` directly, so we stick with the legacy
+    // (`libraries=...` + `callback=...`) pattern, which guarantees `places` is
+    // present when the callback fires.
+    script.src =
+      `https://maps.googleapis.com/maps/api/js` +
+      `?key=${encodeURIComponent(apiKey)}` +
+      `&libraries=places` +
+      `&v=weekly` +
+      `&callback=${callbackName}`;
     script.async = true;
     script.defer = true;
     script.dataset.gmaps = "1";
-    script.onload = ready;
     script.onerror = () => {
+      cleanupCallback();
       loaderPromise = null; // permit retry on next mount
       reject(new Error("Failed to load Google Maps script"));
     };
