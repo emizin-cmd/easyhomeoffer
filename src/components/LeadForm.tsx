@@ -200,12 +200,17 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
 
     // POST to Zapier. Silent on failure — the user always sees the success message
     // regardless of webhook health (we don't want to gate UX on a third-party hook).
+    // Uses the exact structure Zapier expects: Content-Type: application/json,
+    // POST, plain JSON body. NO `mode: 'no-cors'` (that strips Content-Type and
+    // makes Zapier receive an empty/unreadable body).
     submittingRef.current = true;
     if (ZAPIER_WEBHOOK_URL) {
       try {
-        await fetch(ZAPIER_WEBHOOK_URL, {
+        const response = await fetch(ZAPIER_WEBHOOK_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             firstName: values.firstName.trim(),
             lastName: values.lastName.trim(),
@@ -213,10 +218,18 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
             phone: values.phone.trim(),
             address: values.address.trim(),
             details: values.details.trim(),
-            submittedAt: new Date().toISOString(),
             source: typeof window !== "undefined" ? window.location.href : "",
           }),
         });
+        // fetch() does NOT reject on 4xx/5xx — only on network errors. Explicitly
+        // log non-2xx so a paused/misconfigured Zap is visible in DevTools console.
+        if (!response.ok) {
+          console.warn(
+            "[LeadForm] Zapier returned non-success status:",
+            response.status,
+            response.statusText,
+          );
+        }
       } catch (err) {
         // Swallow — Zapier failures must not block the conversion.
         console.warn("[LeadForm] Zapier webhook failed:", err);
