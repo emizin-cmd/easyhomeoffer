@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { buildSeo, LOCAL_BUSINESS_JSON_LD } from "@/lib/seo";
 import { useState } from "react";
 import {
-  PlayCircle,
   ArrowRight,
   BadgeCheck,
   Check,
@@ -788,18 +787,33 @@ function Index() {
             </h2>
           </div>
 
-          {/* Auto-scrolling carousel. Duplicates cards in DOM so the -50%
-              translation creates a seamless loop. Pauses on hover so users can
-              read individual reviews. Respects prefers-reduced-motion. */}
+          {/* MOBILE: manual horizontal scroll, NO autoplay. Single set of cards
+              (no DOM duplication needed) with snap-x for tactile swipe feel. */}
           <div
-            className="group mt-14 -mx-6 overflow-hidden pb-4"
+            className="mt-14 -mx-6 overflow-x-auto pb-4 [scrollbar-width:thin] snap-x snap-mandatory md:hidden"
+            aria-label="Customer reviews — swipe to see more"
+          >
+            <div className="flex gap-6 px-6">
+              {GOOGLE_REVIEWS.map((review) => (
+                <div key={review.name} className="w-[300px] shrink-0 snap-start">
+                  <GoogleReviewCard review={review} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* DESKTOP: auto-scrolling marquee. Duplicates cards in DOM so the
+              -50% translation creates a seamless loop. Pauses on hover so users
+              can read individual reviews. Respects prefers-reduced-motion. */}
+          <div
+            className="mt-14 -mx-6 hidden overflow-hidden pb-4 md:block"
             aria-label="Customer reviews carousel"
           >
             <div className="animate-marquee flex gap-6 pl-6">
               {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
                 <div
                   key={`${review.name}-${i}`}
-                  className="w-[300px] shrink-0 md:w-[380px]"
+                  className="w-[380px] shrink-0"
                   aria-hidden={i >= GOOGLE_REVIEWS.length}
                 >
                   <GoogleReviewCard review={review} />
@@ -807,62 +821,11 @@ function Index() {
               ))}
             </div>
           </div>
-          <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground/70">
-            <span>Hover to pause</span>
-          </div>
 
-          {/* Client Testimonial Video — placeholder. Drop an embed (YouTube,
-              Vimeo, or local <video>) inside the .aspect-video container once
-              the asset is ready. */}
-          <div className="mt-16 md:mt-24">
-            <div className="mx-auto max-w-3xl text-center">
-              <SectionLabel>Client testimonial video</SectionLabel>
-              <h3 className="mt-5 font-heading text-2xl font-bold tracking-tight md:text-3xl">
-                Hear it{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "var(--gradient-primary)" }}
-                >
-                  from a homeowner.
-                </span>
-              </h3>
-              <p className="mt-3 text-sm text-muted-foreground md:text-base">
-                A short walkthrough from a recent seller about their experience.
-              </p>
-            </div>
-            <div className="mx-auto mt-8 max-w-3xl px-2 md:px-0">
-              <div className="relative aspect-video overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] md:rounded-3xl">
-                {/* Placeholder content — replace with iframe/<video> when ready. */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(60% 50% at 50% 50%, color-mix(in oklab, var(--primary) 8%, transparent), transparent 70%)",
-                  }}
-                  aria-hidden
-                />
-                <div className="relative flex h-full flex-col items-center justify-center text-center">
-                  <div
-                    className="grid h-16 w-16 place-items-center rounded-full text-primary-foreground shadow-lg md:h-20 md:w-20"
-                    style={{ background: "var(--gradient-primary)" }}
-                  >
-                    <PlayCircle className="h-8 w-8 md:h-10 md:w-10" strokeWidth={1.8} />
-                  </div>
-                  <p className="mt-4 text-sm font-medium text-foreground/70 md:text-base">
-                    Client testimonial video — coming soon
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    Want to share your story?{" "}
-                    <a
-                      href="mailto:info@twincitieshomebuyers.com"
-                      className="font-medium text-primary hover:underline"
-                    >
-                      Email us
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
+          {/* Hint differs per viewport: swipe on mobile, hover-to-pause on desktop. */}
+          <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground/70">
+            <span className="md:hidden">Swipe to see more</span>
+            <span className="hidden md:inline">Hover to pause</span>
           </div>
         </div>
       </section>
