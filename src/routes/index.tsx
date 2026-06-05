@@ -468,8 +468,10 @@ function Index() {
             </ul>
 
 
-            {/* trust strip — branded by Google + BBB, not just generic icons */}
-            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground md:mt-10 md:gap-x-8 md:gap-y-3">
+            {/* trust strip — branded by Google + BBB, not just generic icons.
+                Centered on mobile (where flex-wrap stacks the rows), reverts
+                to left-aligned at md+ to match the surrounding text column. */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground md:mt-10 md:justify-start md:gap-x-8 md:gap-y-3">
               {/* Google Reviews snippet */}
               <div className="flex items-center gap-1.5">
                 <GoogleGLogo className="h-4 w-4 shrink-0" />
