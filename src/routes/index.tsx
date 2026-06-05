@@ -26,11 +26,8 @@ import bbbAPlus from "../assets/bbb-a-plus.png";
 import avatar1 from "../assets/avatar-1.jpg";
 import avatar2 from "../assets/avatar-2.jpg";
 import avatar3 from "../assets/avatar-3.jpg";
-import reviewChlebeck from "../assets/review-chlebeck.jpg";
-import reviewRaetz from "../assets/review-raetz.jpg";
-import reviewJohnson from "../assets/review-johnson.jpg";
-import reviewPantlin from "../assets/review-pantlin.jpg";
-import reviewSwerdlick from "../assets/review-swerdlick.jpg";
+import { GoogleReviewCard } from "@/components/GoogleReviewCard";
+import { GOOGLE_REVIEWS } from "@/lib/google-reviews";
 
 
 export const Route = createFileRoute("/")({
@@ -759,82 +756,13 @@ function Index() {
 
           <div className="mt-14 -mx-6 overflow-x-auto pb-4 [scrollbar-width:thin] snap-x snap-mandatory">
             <div className="flex gap-6 px-6">
-              {[
-                {
-                  quote:
-                    "I don't normally let strangers into my home, but a friend's son had worked with this company so I felt comfortable. Steve was respectful, explained how he came to the offer, and made the decision easy. I put money in savings and moved into assisted living right on time.",
-                  name: "Kay",
-                  location: "St. Paul, MN",
-                  avatar: avatar2,
-                },
-                {
-                  quote:
-                    "Very \u201cup front\u201d with relating comments and sensitive to feelings of sellers.",
-                  name: "Mr. Chlebeck",
-                  location: "Twin Cities, MN",
-                  avatar: reviewChlebeck,
-                },
-                {
-                  quote:
-                    "Things went smoothly with our contact person, Jake. We are thankful this company can do this so that we may move on and leave the past behind us, looking forward now.",
-                  name: "The Raetz's",
-                  location: "Twin Cities, MN",
-                  avatar: reviewRaetz,
-                },
-                {
-                  quote:
-                    "Everyone is very polite and respectful. Even when I was a bit stressed Jason and Kristie were always very helpful and friendly. They put me at ease. The sale was a very positive experience.",
-                  name: "Mrs. Johnson",
-                  location: "Minneapolis, MN",
-                  avatar: reviewJohnson,
-                },
-                {
-                  quote:
-                    "The entire process went very quickly and smoothly. I appreciated the understanding of my tenants privacy (inspections done while kids were at school).",
-                  name: "Mrs. Pantlin",
-                  location: "Twin Cities, MN",
-                  avatar: reviewPantlin,
-                },
-                {
-                  quote:
-                    "I worked with Jason Cramer, he was very understanding about my situation. I found Jason to be a reliable partner in getting my house sold.",
-                  name: "Mr. Swerdlick",
-                  location: "Twin Cities, MN",
-                  avatar: reviewSwerdlick,
-                },
-                {
-                  quote: "Painless. We had the cash in our account in less than two weeks.",
-                  name: "The Johnsons",
-                  location: "Minneapolis, MN",
-                  avatar: avatar1,
-                },
-              ].map((r) => (
-                <article
-                  key={r.name}
-                  className="flex w-[300px] shrink-0 snap-start flex-col rounded-2xl border border-border bg-card p-5 md:w-[400px] md:rounded-3xl md:p-7"
+              {GOOGLE_REVIEWS.map((review) => (
+                <div
+                  key={review.name}
+                  className="w-[300px] shrink-0 snap-start md:w-[380px]"
                 >
-                  <div className="flex gap-1">
-                    {[0, 1, 2, 3, 4].map((i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 md:h-4 md:w-4" />
-                    ))}
-                  </div>
-                  <p className="mt-3 flex-1 text-[15px] leading-relaxed text-foreground/90 md:mt-4 md:text-base">{r.quote}</p>
-                  <footer className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4 md:mt-6 md:pt-5">
-                    <img
-                      src={r.avatar}
-                      alt={r.name}
-                      loading="lazy"
-                      decoding="async"
-                      width={80}
-                      height={80}
-                      className="h-12 w-12 rounded-full object-cover ring-2 ring-background"
-                    />
-                    <div>
-                      <div className="text-sm font-semibold">{r.name}</div>
-                      <div className="text-xs text-muted-foreground">{r.location}</div>
-                    </div>
-                  </footer>
-                </article>
+                  <GoogleReviewCard review={review} />
+                </div>
               ))}
             </div>
           </div>

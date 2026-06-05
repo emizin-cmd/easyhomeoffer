@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Quote, Star, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { GoogleReviewCard } from "@/components/GoogleReviewCard";
+import { GOOGLE_REVIEWS } from "@/lib/google-reviews";
 import { buildSeo } from "@/lib/seo";
 import { LeadForm } from "@/components/LeadForm";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -26,55 +28,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-const UNSPLASH_PARAMS = "?auto=format&fit=crop&w=150&h=150&q=80";
-
-const TESTIMONIALS = [
-  {
-    name: "Mr. Chlebeck",
-    text: "Very \"up front\" with relating comments and sensitive to feelings of sellers.",
-    avatar: `https://images.unsplash.com/photo-1500648767791-00dcc994a43e${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "The Raetz's",
-    text: "Things went smoothly with our contact person, Jake. We are thankful this company can do this so that we may move on and leave the past behind us, looking forward now.",
-    avatar: `https://images.unsplash.com/photo-1521119989659-a83eee488004${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "Mrs. Johnson",
-    text: "Everyone is very polite and respectful. Even when I was a bit stressed Jason and Kristie were always very helpful and friendly. They put me at ease. The sale was a very positive experience.",
-    avatar: `https://images.unsplash.com/photo-1544005313-94ddf0286df2${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "Mrs. Pantlin",
-    text: "The entire process sent very quickly and smoothly. I appreciated the understanding of my tenants privacy (inspections done while kids were at school).",
-    avatar: `https://images.unsplash.com/photo-1534528741775-53994a69daeb${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "Mr. Swerdlick",
-    text: "I worked with Jason Cramer, he was very understanding about my situation. I found Jason to be a reliable partner in getting my house sold.",
-    avatar: `https://images.unsplash.com/photo-1472099645785-5658abf4ff4e${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "Mr. Wright's",
-    text: "Always answered all questions and worked transaction to fit our schedule. Plan on using Jason for our next home sale.",
-    avatar: `https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "Mr. Krommer",
-    text: "You guys are awesome and helped us out a lot, we really appreciate it a lot. We will definitely refer Jason and the company if someone we know wants to sell their home.",
-    avatar: `https://images.unsplash.com/photo-1463453091185-61582044d556${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "Mrs. Joslin",
-    text: "First impression was friendly and professional. Quick and responsive communication between all participants. Would highly recommend Twin Cities Home Buyers.",
-    avatar: `https://images.unsplash.com/photo-1438761681033-6461ffad8d80${UNSPLASH_PARAMS}`,
-  },
-  {
-    name: "Mrs. Hoffman",
-    text: "Jason was very pleasant and informative. The closing went smoothly and we were very satisfied.",
-    avatar: `https://images.unsplash.com/photo-1573496359142-b8d87734a5a2${UNSPLASH_PARAMS}`,
-  },
-];
+// Reviews live in src/lib/google-reviews.ts (shared with the homepage carousel).
 
 function TestimonialsPage() {
   return (
@@ -209,36 +163,8 @@ function TestimonialsPage() {
           </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
-              <div
-                key={i}
-                className="relative flex h-full flex-col rounded-3xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
-              >
-                <Quote
-                  className="absolute top-5 right-5 h-8 w-8 text-primary/15"
-                  strokeWidth={1.5}
-                />
-                <div className="flex items-center gap-0.5">
-                  {[0, 1, 2, 3, 4].map((s) => (
-                    <Star key={s} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="mt-4 text-[15px] leading-relaxed text-foreground/85">
-                  "{t.text}"
-                </p>
-                <div className="mt-auto flex items-center gap-3 pt-5">
-                  <img
-                    src={t.avatar}
-                    alt={t.name}
-                    loading="lazy"
-                    decoding="async"
-                    width={72}
-                    height={72}
-                    className="h-9 w-9 shrink-0 rounded-full object-cover"
-                  />
-                  <div className="text-sm font-semibold text-foreground">{t.name}</div>
-                </div>
-              </div>
+            {GOOGLE_REVIEWS.map((review) => (
+              <GoogleReviewCard key={review.name} review={review} />
             ))}
           </div>
         </div>
