@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { buildSeo, LOCAL_BUSINESS_JSON_LD } from "@/lib/seo";
 import { useState } from "react";
 import {
-  ArrowLeftRight,
+  PlayCircle,
   ArrowRight,
   BadgeCheck,
   Check,
@@ -26,7 +26,7 @@ import bbbAPlus from "../assets/bbb-a-plus.png";
 import avatar1 from "../assets/avatar-1.jpg";
 import avatar2 from "../assets/avatar-2.jpg";
 import avatar3 from "../assets/avatar-3.jpg";
-import { GoogleReviewCard } from "@/components/GoogleReviewCard";
+import { GoogleReviewCard, GoogleGLogo } from "@/components/GoogleReviewCard";
 import { GOOGLE_REVIEWS } from "@/lib/google-reviews";
 
 
@@ -394,7 +394,17 @@ function Index() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-10 md:gap-14 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
           <div>
             <div className="flex justify-center">
-              <SectionLabel>Twin Cities cash buyer · BBB A+ rated</SectionLabel>
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                <img
+                  src={bbbAPlus}
+                  alt="BBB A+ Rating"
+                  width={32}
+                  height={32}
+                  decoding="async"
+                  className="h-4 w-auto"
+                />
+                Twin Cities cash buyer · BBB A+ rated
+              </div>
             </div>
             <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-6xl">
               Sell your Minneapolis–St. Paul home{" "}
@@ -458,25 +468,47 @@ function Index() {
             </ul>
 
 
-            {/* trust strip */}
+            {/* trust strip — branded by Google + BBB, not just generic icons */}
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground md:mt-10 md:gap-x-8 md:gap-y-3">
+              {/* Google Reviews snippet */}
               <div className="flex items-center gap-1.5">
+                <GoogleGLogo className="h-4 w-4 shrink-0" />
                 <div className="flex">
                   {[0, 1, 2, 3, 4].map((i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <Star
+                      key={i}
+                      className="h-4 w-4 fill-[#FBBC05] text-[#FBBC05]"
+                      strokeWidth={0}
+                    />
                   ))}
                 </div>
                 <span className="font-medium text-foreground">4.9</span>
-                <span>· 600+ sellers helped</span>
+                <span>· 600+ Google reviews</span>
               </div>
+
+              {/* Years in business */}
               <div className="flex items-center gap-1.5">
                 <BadgeCheck className="h-4 w-4 text-primary" />
                 15+ years in business
               </div>
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="h-4 w-4 text-primary" />
-                BBB A+ rated
-              </div>
+
+              {/* BBB authentic badge */}
+              <a
+                href="https://www.bbb.org/us/mn/maple-grove/profile/real-estate-investing/twin-cities-home-buyers-inc-0704-96005623"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 transition hover:opacity-80"
+              >
+                <img
+                  src={bbbAPlus}
+                  alt="BBB A+ Rating"
+                  width={32}
+                  height={32}
+                  decoding="async"
+                  className="h-4 w-auto"
+                />
+                <span>BBB A+ Rated</span>
+              </a>
             </div>
           </div>
 
@@ -754,12 +786,19 @@ function Index() {
             </h2>
           </div>
 
-          <div className="mt-14 -mx-6 overflow-x-auto pb-4 [scrollbar-width:thin] snap-x snap-mandatory">
-            <div className="flex gap-6 px-6">
-              {GOOGLE_REVIEWS.map((review) => (
+          {/* Auto-scrolling carousel. Duplicates cards in DOM so the -50%
+              translation creates a seamless loop. Pauses on hover so users can
+              read individual reviews. Respects prefers-reduced-motion. */}
+          <div
+            className="group mt-14 -mx-6 overflow-hidden pb-4"
+            aria-label="Customer reviews carousel"
+          >
+            <div className="animate-marquee flex gap-6 pl-6">
+              {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
                 <div
-                  key={review.name}
-                  className="w-[300px] shrink-0 snap-start md:w-[380px]"
+                  key={`${review.name}-${i}`}
+                  className="w-[300px] shrink-0 md:w-[380px]"
+                  aria-hidden={i >= GOOGLE_REVIEWS.length}
                 >
                   <GoogleReviewCard review={review} />
                 </div>
@@ -767,8 +806,61 @@ function Index() {
             </div>
           </div>
           <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground/70">
-            <ArrowLeftRight className="h-4 w-4" />
-            <span>Scroll to read more</span>
+            <span>Hover to pause</span>
+          </div>
+
+          {/* Client Testimonial Video — placeholder. Drop an embed (YouTube,
+              Vimeo, or local <video>) inside the .aspect-video container once
+              the asset is ready. */}
+          <div className="mt-16 md:mt-24">
+            <div className="mx-auto max-w-3xl text-center">
+              <SectionLabel>Client testimonial video</SectionLabel>
+              <h3 className="mt-5 font-heading text-2xl font-bold tracking-tight md:text-3xl">
+                Hear it{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: "var(--gradient-primary)" }}
+                >
+                  from a homeowner.
+                </span>
+              </h3>
+              <p className="mt-3 text-sm text-muted-foreground md:text-base">
+                A short walkthrough from a recent seller about their experience.
+              </p>
+            </div>
+            <div className="mx-auto mt-8 max-w-3xl px-2 md:px-0">
+              <div className="relative aspect-video overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] md:rounded-3xl">
+                {/* Placeholder content — replace with iframe/<video> when ready. */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(60% 50% at 50% 50%, color-mix(in oklab, var(--primary) 8%, transparent), transparent 70%)",
+                  }}
+                  aria-hidden
+                />
+                <div className="relative flex h-full flex-col items-center justify-center text-center">
+                  <div
+                    className="grid h-16 w-16 place-items-center rounded-full text-primary-foreground shadow-lg md:h-20 md:w-20"
+                    style={{ background: "var(--gradient-primary)" }}
+                  >
+                    <PlayCircle className="h-8 w-8 md:h-10 md:w-10" strokeWidth={1.8} />
+                  </div>
+                  <p className="mt-4 text-sm font-medium text-foreground/70 md:text-base">
+                    Client testimonial video — coming soon
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Want to share your story?{" "}
+                    <a
+                      href="mailto:info@twincitieshomebuyers.com"
+                      className="font-medium text-primary hover:underline"
+                    >
+                      Email us
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

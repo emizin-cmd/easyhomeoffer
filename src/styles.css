@@ -169,6 +169,34 @@
   }
 }
 
+/* Marquee for testimonials carousel.
+ * Cards are duplicated in DOM so when translation reaches -50% the next set is
+ * already where the first set started — gives a seamless infinite loop.
+ * Pause on hover so users can read individual reviews. */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+  width: max-content;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
