@@ -17,6 +17,9 @@ const SELL_MENU: SellMenuItem[] = [
   { to: "/sell-your-house-as-is", label: "Sell Your House As-Is" },
   { to: "/home-buyers", label: "Home Buyers" },
   { to: "/we-buy-any-houses", label: "We Buy Any Houses" },
+  { to: "/we-buy-houses-fast", label: "We Buy Houses Fast" },
+  { to: "/we-buy-inherited-houses", label: "We Buy Inherited Houses" },
+  { to: "/we-buy-houses-as-is", label: "We Buy Houses As-Is" },
 ];
 
 export function SiteHeader() {

@@ -9,6 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeBuyInheritedHousesRouteImport } from './routes/we-buy-inherited-houses'
+import { Route as WeBuyHousesFastRouteImport } from './routes/we-buy-houses-fast'
+import { Route as WeBuyHousesAsIsRouteImport } from './routes/we-buy-houses-as-is'
 import { Route as WeBuyAnyHousesRouteImport } from './routes/we-buy-any-houses'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
@@ -27,6 +30,21 @@ import { Route as CompareRouteImport } from './routes/compare'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WeBuyInheritedHousesRoute = WeBuyInheritedHousesRouteImport.update({
+  id: '/we-buy-inherited-houses',
+  path: '/we-buy-inherited-houses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WeBuyHousesFastRoute = WeBuyHousesFastRouteImport.update({
+  id: '/we-buy-houses-fast',
+  path: '/we-buy-houses-fast',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WeBuyHousesAsIsRoute = WeBuyHousesAsIsRouteImport.update({
+  id: '/we-buy-houses-as-is',
+  path: '/we-buy-houses-as-is',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WeBuyAnyHousesRoute = WeBuyAnyHousesRouteImport.update({
   id: '/we-buy-any-houses',
   path: '/we-buy-any-houses',
@@ -132,6 +150,9 @@ export interface FileRoutesByFullPath {
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
   '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
+  '/we-buy-houses-as-is': typeof WeBuyHousesAsIsRoute
+  '/we-buy-houses-fast': typeof WeBuyHousesFastRoute
+  '/we-buy-inherited-houses': typeof WeBuyInheritedHousesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -151,6 +172,9 @@ export interface FileRoutesByTo {
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
   '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
+  '/we-buy-houses-as-is': typeof WeBuyHousesAsIsRoute
+  '/we-buy-houses-fast': typeof WeBuyHousesFastRoute
+  '/we-buy-inherited-houses': typeof WeBuyInheritedHousesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -171,6 +195,9 @@ export interface FileRoutesById {
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
   '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
+  '/we-buy-houses-as-is': typeof WeBuyHousesAsIsRoute
+  '/we-buy-houses-fast': typeof WeBuyHousesFastRoute
+  '/we-buy-inherited-houses': typeof WeBuyInheritedHousesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -192,6 +219,9 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/thank-you'
     | '/we-buy-any-houses'
+    | '/we-buy-houses-as-is'
+    | '/we-buy-houses-fast'
+    | '/we-buy-inherited-houses'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -211,6 +241,9 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/thank-you'
     | '/we-buy-any-houses'
+    | '/we-buy-houses-as-is'
+    | '/we-buy-houses-fast'
+    | '/we-buy-inherited-houses'
   id:
     | '__root__'
     | '/'
@@ -230,6 +263,9 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/thank-you'
     | '/we-buy-any-houses'
+    | '/we-buy-houses-as-is'
+    | '/we-buy-houses-fast'
+    | '/we-buy-inherited-houses'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -250,10 +286,34 @@ export interface RootRouteChildren {
   TestimonialsRoute: typeof TestimonialsRoute
   ThankYouRoute: typeof ThankYouRoute
   WeBuyAnyHousesRoute: typeof WeBuyAnyHousesRoute
+  WeBuyHousesAsIsRoute: typeof WeBuyHousesAsIsRoute
+  WeBuyHousesFastRoute: typeof WeBuyHousesFastRoute
+  WeBuyInheritedHousesRoute: typeof WeBuyInheritedHousesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/we-buy-inherited-houses': {
+      id: '/we-buy-inherited-houses'
+      path: '/we-buy-inherited-houses'
+      fullPath: '/we-buy-inherited-houses'
+      preLoaderRoute: typeof WeBuyInheritedHousesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/we-buy-houses-fast': {
+      id: '/we-buy-houses-fast'
+      path: '/we-buy-houses-fast'
+      fullPath: '/we-buy-houses-fast'
+      preLoaderRoute: typeof WeBuyHousesFastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/we-buy-houses-as-is': {
+      id: '/we-buy-houses-as-is'
+      path: '/we-buy-houses-as-is'
+      fullPath: '/we-buy-houses-as-is'
+      preLoaderRoute: typeof WeBuyHousesAsIsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/we-buy-any-houses': {
       id: '/we-buy-any-houses'
       path: '/we-buy-any-houses'
@@ -394,6 +454,9 @@ const rootRouteChildren: RootRouteChildren = {
   TestimonialsRoute: TestimonialsRoute,
   ThankYouRoute: ThankYouRoute,
   WeBuyAnyHousesRoute: WeBuyAnyHousesRoute,
+  WeBuyHousesAsIsRoute: WeBuyHousesAsIsRoute,
+  WeBuyHousesFastRoute: WeBuyHousesFastRoute,
+  WeBuyInheritedHousesRoute: WeBuyInheritedHousesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
