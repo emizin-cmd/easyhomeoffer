@@ -33,20 +33,30 @@ export function SiteFooter() {
       </div>
 
       {/* Floating phone CTA — mobile only (pill with number + icon) */}
-      <a
-        href={`tel:${PHONE_TEL}`}
-        aria-label={`Call us at ${PHONE_DISPLAY}`}
-        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2.5 rounded-full bg-[#f97316] py-2 pl-5 pr-2 text-primary-foreground shadow-lg ring-4 ring-[#f97316]/20 transition hover:scale-105 hover:shadow-xl active:scale-95 md:hidden"
-      >
-        <span className="text-sm font-semibold tracking-tight">{PHONE_DISPLAY}</span>
+      <div className="pointer-events-none fixed bottom-6 right-6 z-50 md:hidden">
         <span
           aria-hidden
-          className="grid h-9 w-9 place-items-center rounded-full bg-white/25 backdrop-blur-sm"
+          className="animate-cta-ripple pointer-events-none absolute inset-0 rounded-full bg-[#f97316]"
+        />
+        <span
+          aria-hidden
+          className="animate-cta-ripple-delayed pointer-events-none absolute inset-0 rounded-full bg-[#f97316]"
+        />
+        <a
+          href={`tel:${PHONE_TEL}`}
+          aria-label={`Call us at ${PHONE_DISPLAY}`}
+          className="pointer-events-auto relative inline-flex items-center gap-2.5 rounded-full bg-[#f97316] py-2 pl-5 pr-2 text-primary-foreground shadow-lg ring-4 ring-[#f97316]/20 transition hover:scale-105 hover:shadow-xl active:scale-95"
         >
-          <Phone className="h-4 w-4 animate-phone-wiggle" strokeWidth={2.5} />
-        </span>
-        <span className="sr-only">Call {PHONE_DISPLAY}</span>
-      </a>
+          <span className="text-sm font-semibold tracking-tight">{PHONE_DISPLAY}</span>
+          <span
+            aria-hidden
+            className="grid h-9 w-9 place-items-center rounded-full bg-white/25 backdrop-blur-sm"
+          >
+            <Phone className="h-4 w-4 animate-phone-wiggle" strokeWidth={2.5} />
+          </span>
+          <span className="sr-only">Call {PHONE_DISPLAY}</span>
+        </a>
+      </div>
 
       <footer className="border-t border-border/60 bg-background">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
