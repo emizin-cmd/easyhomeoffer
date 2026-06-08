@@ -9,18 +9,28 @@ export function SiteFooter() {
   return (
     <>
       {/* Floating "Get Cash Offer" widget — desktop only */}
-      <button
-        type="button"
-        aria-label="Scroll to lead capture form"
-        onClick={() =>
-          document
-            .getElementById("offer")
-            ?.scrollIntoView({ behavior: "smooth", block: "center" })
-        }
-        className="fixed bottom-8 right-8 z-50 hidden items-center rounded-full bg-[#0b132a] px-5 py-3 text-sm font-semibold text-white shadow-xl ring-1 ring-white/10 transition hover:-translate-y-0.5 hover:bg-[#111c3d] hover:shadow-2xl active:translate-y-0 md:inline-flex md:bg-[#f97316] md:hover:bg-[#ea580c] md:ring-[#fb923c]/30"
-      >
-        Get Cash Offer
-      </button>
+      <div className="pointer-events-none fixed bottom-8 right-8 z-50 hidden md:block">
+        <span
+          aria-hidden
+          className="animate-cta-ripple pointer-events-none absolute inset-0 rounded-full bg-[#f97316]"
+        />
+        <span
+          aria-hidden
+          className="animate-cta-ripple-delayed pointer-events-none absolute inset-0 rounded-full bg-[#f97316]"
+        />
+        <button
+          type="button"
+          aria-label="Scroll to lead capture form"
+          onClick={() =>
+            document
+              .getElementById("offer")
+              ?.scrollIntoView({ behavior: "smooth", block: "center" })
+          }
+          className="pointer-events-auto relative inline-flex items-center rounded-full bg-[#f97316] px-5 py-3 text-sm font-semibold text-white shadow-xl ring-1 ring-[#fb923c]/30 transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-2xl active:translate-y-0"
+        >
+          Get Cash Offer
+        </button>
+      </div>
 
       {/* Floating phone CTA — mobile only (pill with number + icon) */}
       <a

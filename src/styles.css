@@ -197,6 +197,39 @@
   }
 }
 
+/* Ripple wave behind the floating Get Cash Offer button.
+ * Two rings staggered by half the cycle so a new wave starts as the
+ * previous fades — gives the feel of a continuous outward pulse. */
+@keyframes cta-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+.animate-cta-ripple,
+.animate-cta-ripple-delayed {
+  animation: cta-ripple 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.animate-cta-ripple-delayed {
+  animation-delay: 1.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cta-ripple,
+  .animate-cta-ripple-delayed {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
