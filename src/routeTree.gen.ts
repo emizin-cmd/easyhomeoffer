@@ -9,19 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeBuyAnyHousesRouteImport } from './routes/we-buy-any-houses'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as TermsConditionsRouteImport } from './routes/terms-conditions'
+import { Route as SellYourHouseAsIsRouteImport } from './routes/sell-your-house-as-is'
 import { Route as SellYourHouseRouteImport } from './routes/sell-your-house'
+import { Route as SellInheritedHomeMinneapolisRouteImport } from './routes/sell-inherited-home-minneapolis'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as HomeBuyersRouteImport } from './routes/home-buyers'
 import { Route as GetACashOfferTodayRouteImport } from './routes/get-a-cash-offer-today'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as DivorceRouteImport } from './routes/divorce'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WeBuyAnyHousesRoute = WeBuyAnyHousesRouteImport.update({
+  id: '/we-buy-any-houses',
+  path: '/we-buy-any-houses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
   path: '/thank-you',
@@ -37,11 +47,22 @@ const TermsConditionsRoute = TermsConditionsRouteImport.update({
   path: '/terms-conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellYourHouseAsIsRoute = SellYourHouseAsIsRouteImport.update({
+  id: '/sell-your-house-as-is',
+  path: '/sell-your-house-as-is',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SellYourHouseRoute = SellYourHouseRouteImport.update({
   id: '/sell-your-house',
   path: '/sell-your-house',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellInheritedHomeMinneapolisRoute =
+  SellInheritedHomeMinneapolisRouteImport.update({
+    id: '/sell-inherited-home-minneapolis',
+    path: '/sell-inherited-home-minneapolis',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -52,6 +73,11 @@ const HowItWorksRoute = HowItWorksRouteImport.update({
   path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HomeBuyersRoute = HomeBuyersRouteImport.update({
+  id: '/home-buyers',
+  path: '/home-buyers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GetACashOfferTodayRoute = GetACashOfferTodayRouteImport.update({
   id: '/get-a-cash-offer-today',
   path: '/get-a-cash-offer-today',
@@ -60,6 +86,11 @@ const GetACashOfferTodayRoute = GetACashOfferTodayRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DivorceRoute = DivorceRouteImport.update({
+  id: '/divorce',
+  path: '/divorce',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactUsRoute = ContactUsRouteImport.update({
@@ -88,28 +119,38 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/compare': typeof CompareRoute
   '/contact-us': typeof ContactUsRoute
+  '/divorce': typeof DivorceRoute
   '/faq': typeof FaqRoute
   '/get-a-cash-offer-today': typeof GetACashOfferTodayRoute
+  '/home-buyers': typeof HomeBuyersRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/sell-inherited-home-minneapolis': typeof SellInheritedHomeMinneapolisRoute
   '/sell-your-house': typeof SellYourHouseRoute
+  '/sell-your-house-as-is': typeof SellYourHouseAsIsRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
+  '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/compare': typeof CompareRoute
   '/contact-us': typeof ContactUsRoute
+  '/divorce': typeof DivorceRoute
   '/faq': typeof FaqRoute
   '/get-a-cash-offer-today': typeof GetACashOfferTodayRoute
+  '/home-buyers': typeof HomeBuyersRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/sell-inherited-home-minneapolis': typeof SellInheritedHomeMinneapolisRoute
   '/sell-your-house': typeof SellYourHouseRoute
+  '/sell-your-house-as-is': typeof SellYourHouseAsIsRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
+  '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -117,14 +158,19 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/compare': typeof CompareRoute
   '/contact-us': typeof ContactUsRoute
+  '/divorce': typeof DivorceRoute
   '/faq': typeof FaqRoute
   '/get-a-cash-offer-today': typeof GetACashOfferTodayRoute
+  '/home-buyers': typeof HomeBuyersRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/sell-inherited-home-minneapolis': typeof SellInheritedHomeMinneapolisRoute
   '/sell-your-house': typeof SellYourHouseRoute
+  '/sell-your-house-as-is': typeof SellYourHouseAsIsRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
+  '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -133,42 +179,57 @@ export interface FileRouteTypes {
     | '/about'
     | '/compare'
     | '/contact-us'
+    | '/divorce'
     | '/faq'
     | '/get-a-cash-offer-today'
+    | '/home-buyers'
     | '/how-it-works'
     | '/privacy'
+    | '/sell-inherited-home-minneapolis'
     | '/sell-your-house'
+    | '/sell-your-house-as-is'
     | '/terms-conditions'
     | '/testimonials'
     | '/thank-you'
+    | '/we-buy-any-houses'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/compare'
     | '/contact-us'
+    | '/divorce'
     | '/faq'
     | '/get-a-cash-offer-today'
+    | '/home-buyers'
     | '/how-it-works'
     | '/privacy'
+    | '/sell-inherited-home-minneapolis'
     | '/sell-your-house'
+    | '/sell-your-house-as-is'
     | '/terms-conditions'
     | '/testimonials'
     | '/thank-you'
+    | '/we-buy-any-houses'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/compare'
     | '/contact-us'
+    | '/divorce'
     | '/faq'
     | '/get-a-cash-offer-today'
+    | '/home-buyers'
     | '/how-it-works'
     | '/privacy'
+    | '/sell-inherited-home-minneapolis'
     | '/sell-your-house'
+    | '/sell-your-house-as-is'
     | '/terms-conditions'
     | '/testimonials'
     | '/thank-you'
+    | '/we-buy-any-houses'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -176,18 +237,30 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CompareRoute: typeof CompareRoute
   ContactUsRoute: typeof ContactUsRoute
+  DivorceRoute: typeof DivorceRoute
   FaqRoute: typeof FaqRoute
   GetACashOfferTodayRoute: typeof GetACashOfferTodayRoute
+  HomeBuyersRoute: typeof HomeBuyersRoute
   HowItWorksRoute: typeof HowItWorksRoute
   PrivacyRoute: typeof PrivacyRoute
+  SellInheritedHomeMinneapolisRoute: typeof SellInheritedHomeMinneapolisRoute
   SellYourHouseRoute: typeof SellYourHouseRoute
+  SellYourHouseAsIsRoute: typeof SellYourHouseAsIsRoute
   TermsConditionsRoute: typeof TermsConditionsRoute
   TestimonialsRoute: typeof TestimonialsRoute
   ThankYouRoute: typeof ThankYouRoute
+  WeBuyAnyHousesRoute: typeof WeBuyAnyHousesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/we-buy-any-houses': {
+      id: '/we-buy-any-houses'
+      path: '/we-buy-any-houses'
+      fullPath: '/we-buy-any-houses'
+      preLoaderRoute: typeof WeBuyAnyHousesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/thank-you': {
       id: '/thank-you'
       path: '/thank-you'
@@ -209,11 +282,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sell-your-house-as-is': {
+      id: '/sell-your-house-as-is'
+      path: '/sell-your-house-as-is'
+      fullPath: '/sell-your-house-as-is'
+      preLoaderRoute: typeof SellYourHouseAsIsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sell-your-house': {
       id: '/sell-your-house'
       path: '/sell-your-house'
       fullPath: '/sell-your-house'
       preLoaderRoute: typeof SellYourHouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sell-inherited-home-minneapolis': {
+      id: '/sell-inherited-home-minneapolis'
+      path: '/sell-inherited-home-minneapolis'
+      fullPath: '/sell-inherited-home-minneapolis'
+      preLoaderRoute: typeof SellInheritedHomeMinneapolisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -230,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/home-buyers': {
+      id: '/home-buyers'
+      path: '/home-buyers'
+      fullPath: '/home-buyers'
+      preLoaderRoute: typeof HomeBuyersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/get-a-cash-offer-today': {
       id: '/get-a-cash-offer-today'
       path: '/get-a-cash-offer-today'
@@ -242,6 +336,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/divorce': {
+      id: '/divorce'
+      path: '/divorce'
+      fullPath: '/divorce'
+      preLoaderRoute: typeof DivorceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact-us': {
@@ -280,14 +381,19 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CompareRoute: CompareRoute,
   ContactUsRoute: ContactUsRoute,
+  DivorceRoute: DivorceRoute,
   FaqRoute: FaqRoute,
   GetACashOfferTodayRoute: GetACashOfferTodayRoute,
+  HomeBuyersRoute: HomeBuyersRoute,
   HowItWorksRoute: HowItWorksRoute,
   PrivacyRoute: PrivacyRoute,
+  SellInheritedHomeMinneapolisRoute: SellInheritedHomeMinneapolisRoute,
   SellYourHouseRoute: SellYourHouseRoute,
+  SellYourHouseAsIsRoute: SellYourHouseAsIsRoute,
   TermsConditionsRoute: TermsConditionsRoute,
   TestimonialsRoute: TestimonialsRoute,
   ThankYouRoute: ThankYouRoute,
+  WeBuyAnyHousesRoute: WeBuyAnyHousesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
