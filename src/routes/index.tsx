@@ -889,11 +889,15 @@ function Index() {
               "Plymouth",
               "Roseville",
             ].map((c) => (
-              <li
-                key={c}
-                className="rounded-xl border border-border bg-card px-4 py-3 text-center transition hover:border-primary/40 hover:text-primary"
-              >
-                {c}, MN
+              <li key={c}>
+                <button
+                  type="button"
+                  onClick={scrollToOffer}
+                  aria-label={`Get a cash offer for your house in ${c}, MN`}
+                  className="w-full cursor-pointer rounded-xl border border-border bg-card px-4 py-3 text-center transition hover:-translate-y-0.5 hover:border-primary/40 hover:bg-card/80 hover:text-primary hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:translate-y-0"
+                >
+                  {c}, MN
+                </button>
               </li>
             ))}
           </ul>
