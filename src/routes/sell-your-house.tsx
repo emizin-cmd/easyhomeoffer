@@ -17,6 +17,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LeadForm } from "@/components/LeadForm";
 import { GoogleGLogo } from "@/components/GoogleReviewCard";
+import { ScrollOfferCta } from "@/components/ScrollOfferCta";
 import skyline from "../assets/skyline.jpg";
 import bbbAccredited from "../assets/bbb-accredited.png";
 import bbbAPlus from "../assets/bbb-a-plus.png";
@@ -263,6 +264,9 @@ function SellYourHousePage() {
               <div className="mt-1 text-sm text-muted-foreground">{s.v}</div>
             </div>
           ))}
+        </div>
+        <div className="mx-auto max-w-7xl px-6 pb-10">
+          <ScrollOfferCta />
         </div>
       </section>
 
@@ -528,6 +532,8 @@ function SellYourHousePage() {
             </div>
           </div>
         </div>
+
+        <ScrollOfferCta />
       </section>
 
       {/* FINAL CTA */}

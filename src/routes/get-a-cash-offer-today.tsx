@@ -3,6 +3,7 @@ import { BadgeCheck, Check, Quote, Sparkles, Star } from "lucide-react";
 import { buildSeo } from "@/lib/seo";
 import { LeadForm } from "@/components/LeadForm";
 import { GoogleGLogo } from "@/components/GoogleReviewCard";
+import { ScrollOfferCta } from "@/components/ScrollOfferCta";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import skyline from "../assets/skyline.jpg";
@@ -240,6 +241,8 @@ function GetACashOfferTodayPage() {
               option.
             </p>
           </div>
+
+          <ScrollOfferCta />
         </div>
       </section>
 
@@ -276,6 +279,8 @@ function GetACashOfferTodayPage() {
               </div>
             </footer>
           </div>
+
+          <ScrollOfferCta />
         </div>
       </section>
 
@@ -323,6 +328,8 @@ function GetACashOfferTodayPage() {
             … and we can help them{" "}
             <span className="font-semibold text-foreground">achieve all of these.</span>
           </p>
+
+          <ScrollOfferCta />
         </div>
       </section>
 

@@ -20,6 +20,7 @@ import { CompareTable } from "@/components/CompareTable";
 import { ReviewsCarousel } from "@/components/ReviewsCarousel";
 import { FaqAccordion, type FaqEntry } from "@/components/FaqAccordion";
 import { GoogleGLogo } from "@/components/GoogleReviewCard";
+import { ScrollOfferCta } from "@/components/ScrollOfferCta";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import skyline from "../assets/skyline.jpg";
@@ -322,6 +323,8 @@ function WeBuyInheritedHousesPage() {
               );
             })}
           </div>
+
+          <ScrollOfferCta />
         </div>
       </section>
 
@@ -368,6 +371,8 @@ function WeBuyInheritedHousesPage() {
               );
             })}
           </div>
+
+          <ScrollOfferCta />
         </div>
       </section>
 
@@ -393,6 +398,8 @@ function WeBuyInheritedHousesPage() {
           <div className="mt-10">
             <CompareTable />
           </div>
+
+          <ScrollOfferCta />
         </div>
       </section>
 
@@ -408,6 +415,8 @@ function WeBuyInheritedHousesPage() {
           <div className="mt-14">
             <ReviewsCarousel />
           </div>
+
+          <ScrollOfferCta />
         </div>
       </section>
 
