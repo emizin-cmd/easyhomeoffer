@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { buildSeo } from "@/lib/seo";
 import {
   ArrowRight,
+  BadgeCheck,
   Check,
   ClipboardList,
   Clock,
@@ -13,9 +14,15 @@ import {
   Star,
 } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
+import { GoogleGLogo } from "@/components/GoogleReviewCard";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import skyline from "../assets/skyline.jpg";
+import bbbAccredited from "../assets/bbb-accredited.png";
+import bbbAPlus from "../assets/bbb-a-plus.png";
+import avatar1 from "../assets/avatar-1.jpg";
+import avatar2 from "../assets/avatar-2.jpg";
+import avatar3 from "../assets/avatar-3.jpg";
 
 export const Route = createFileRoute("/how-it-works")({
   component: HowItWorksPage,
@@ -88,10 +95,20 @@ function HowItWorksPage() {
         />
         <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-10 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
           <div>
-            <div className="flex justify-center lg:justify-start">
-              <SectionLabel>Our process</SectionLabel>
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-border bg-secondary/60 py-1 pl-1.5 pr-3.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                <img
+                  src={bbbAPlus}
+                  alt="BBB A+ Rating"
+                  width={32}
+                  height={32}
+                  decoding="async"
+                  className="h-5 w-auto shrink-0"
+                />
+                Twin Cities cash buyer · BBB A+ rated
+              </div>
             </div>
-            <h1 className="mt-5 text-center text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-left lg:text-6xl">
+            <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-6xl">
               <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
                 4 Steps To Sell Your House
               </span>{" "}
@@ -102,10 +119,97 @@ function HowItWorksPage() {
                 Quickly and Easily.
               </span>
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg lg:mx-0 lg:text-left">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg">
               When you work with a realtor, you'll find there is a long process to selling your house.
               With Twin Cities Home Buyers, we cut through the red tape and make it simple.
             </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3 md:mt-8 md:gap-5">
+              <a
+                href="https://www.bbb.org/us/mn/maple-grove/profile/real-estate-investing/twin-cities-home-buyers-inc-0704-96005623#sealclick"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 transition hover:opacity-80 md:gap-3"
+                aria-label="BBB Accredited Business A+ Rating"
+              >
+                <img src={bbbAccredited} alt="BBB Accredited Business" width={120} height={56} decoding="async" fetchPriority="high" className="h-8 w-auto md:h-14" />
+                <img src={bbbAPlus} alt="BBB A+ Rating" width={120} height={56} decoding="async" fetchPriority="high" className="h-8 w-auto md:h-14" />
+              </a>
+
+              <div className="flex items-center gap-2.5 rounded-xl border border-border/60 bg-card/60 px-3 py-2 backdrop-blur-sm md:gap-4 md:rounded-2xl md:px-4 md:py-3">
+                <div className="flex -space-x-1.5 md:-space-x-2">
+                  {[avatar1, avatar2, avatar3].map((src, i) => (
+                    <img
+                      key={i}
+                      src={src}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      width={64}
+                      height={64}
+                      className="h-7 w-7 rounded-full border-2 border-background object-cover md:h-9 md:w-9"
+                    />
+                  ))}
+                </div>
+                <div className="text-xs leading-tight md:text-sm">
+                  <div className="font-semibold text-foreground">600+ homeowners</div>
+                  <div className="text-[11px] text-muted-foreground md:text-xs">trusted us since 2010</div>
+                </div>
+              </div>
+            </div>
+
+            <ul className="mt-6 grid grid-cols-2 gap-2 md:mt-8 md:gap-3">
+              {[
+                "Cash offer in 24 hours",
+                "Close in as little as 7 days",
+                "Any condition, any situation",
+                "We pay all closing costs",
+              ].map((t) => (
+                <li key={t} className="flex items-center gap-2 text-[13px] font-medium leading-snug md:gap-3 md:text-sm">
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/10 text-primary md:h-6 md:w-6">
+                    <Check className="h-3 w-3 md:h-3.5 md:w-3.5" strokeWidth={3} />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground md:mt-10 md:justify-start md:gap-x-8 md:gap-y-3">
+              <div className="flex items-center gap-2">
+                <GoogleGLogo className="h-5 w-5 shrink-0" />
+                <div className="flex">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <Star
+                      key={i}
+                      className="h-5 w-5 fill-[#FBBC05] text-[#FBBC05]"
+                      strokeWidth={0}
+                    />
+                  ))}
+                </div>
+                <span className="font-medium text-foreground">4.9</span>
+                <span>· 600+ Google reviews</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="h-5 w-5 shrink-0 text-primary" />
+                15+ years in business
+              </div>
+              <a
+                href="https://www.bbb.org/us/mn/maple-grove/profile/real-estate-investing/twin-cities-home-buyers-inc-0704-96005623"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 transition hover:opacity-80"
+              >
+                <img
+                  src={bbbAPlus}
+                  alt="BBB A+ Rating"
+                  width={32}
+                  height={32}
+                  decoding="async"
+                  className="h-5 w-auto shrink-0"
+                />
+                <span>BBB A+ Rated</span>
+              </a>
+            </div>
           </div>
 
           {/* Offer card */}
