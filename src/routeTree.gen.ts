@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WeBuyInheritedHousesRouteImport } from './routes/we-buy-inherited-houses'
 import { Route as WeBuyHousesFastRouteImport } from './routes/we-buy-houses-fast'
 import { Route as WeBuyHousesAsIsRouteImport } from './routes/we-buy-houses-as-is'
-import { Route as WeBuyAnyHousesRouteImport } from './routes/we-buy-any-houses'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as TermsConditionsRouteImport } from './routes/terms-conditions'
@@ -24,7 +23,6 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as HomeBuyersRouteImport } from './routes/home-buyers'
 import { Route as GetACashOfferTodayRouteImport } from './routes/get-a-cash-offer-today'
 import { Route as FaqRouteImport } from './routes/faq'
-import { Route as DivorceRouteImport } from './routes/divorce'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as AboutRouteImport } from './routes/about'
@@ -43,11 +41,6 @@ const WeBuyHousesFastRoute = WeBuyHousesFastRouteImport.update({
 const WeBuyHousesAsIsRoute = WeBuyHousesAsIsRouteImport.update({
   id: '/we-buy-houses-as-is',
   path: '/we-buy-houses-as-is',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WeBuyAnyHousesRoute = WeBuyAnyHousesRouteImport.update({
-  id: '/we-buy-any-houses',
-  path: '/we-buy-any-houses',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ThankYouRoute = ThankYouRouteImport.update({
@@ -106,11 +99,6 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DivorceRoute = DivorceRouteImport.update({
-  id: '/divorce',
-  path: '/divorce',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContactUsRoute = ContactUsRouteImport.update({
   id: '/contact-us',
   path: '/contact-us',
@@ -137,7 +125,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/compare': typeof CompareRoute
   '/contact-us': typeof ContactUsRoute
-  '/divorce': typeof DivorceRoute
   '/faq': typeof FaqRoute
   '/get-a-cash-offer-today': typeof GetACashOfferTodayRoute
   '/home-buyers': typeof HomeBuyersRoute
@@ -149,7 +136,6 @@ export interface FileRoutesByFullPath {
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
-  '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
   '/we-buy-houses-as-is': typeof WeBuyHousesAsIsRoute
   '/we-buy-houses-fast': typeof WeBuyHousesFastRoute
   '/we-buy-inherited-houses': typeof WeBuyInheritedHousesRoute
@@ -159,7 +145,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/compare': typeof CompareRoute
   '/contact-us': typeof ContactUsRoute
-  '/divorce': typeof DivorceRoute
   '/faq': typeof FaqRoute
   '/get-a-cash-offer-today': typeof GetACashOfferTodayRoute
   '/home-buyers': typeof HomeBuyersRoute
@@ -171,7 +156,6 @@ export interface FileRoutesByTo {
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
-  '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
   '/we-buy-houses-as-is': typeof WeBuyHousesAsIsRoute
   '/we-buy-houses-fast': typeof WeBuyHousesFastRoute
   '/we-buy-inherited-houses': typeof WeBuyInheritedHousesRoute
@@ -182,7 +166,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/compare': typeof CompareRoute
   '/contact-us': typeof ContactUsRoute
-  '/divorce': typeof DivorceRoute
   '/faq': typeof FaqRoute
   '/get-a-cash-offer-today': typeof GetACashOfferTodayRoute
   '/home-buyers': typeof HomeBuyersRoute
@@ -194,7 +177,6 @@ export interface FileRoutesById {
   '/terms-conditions': typeof TermsConditionsRoute
   '/testimonials': typeof TestimonialsRoute
   '/thank-you': typeof ThankYouRoute
-  '/we-buy-any-houses': typeof WeBuyAnyHousesRoute
   '/we-buy-houses-as-is': typeof WeBuyHousesAsIsRoute
   '/we-buy-houses-fast': typeof WeBuyHousesFastRoute
   '/we-buy-inherited-houses': typeof WeBuyInheritedHousesRoute
@@ -206,7 +188,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/compare'
     | '/contact-us'
-    | '/divorce'
     | '/faq'
     | '/get-a-cash-offer-today'
     | '/home-buyers'
@@ -218,7 +199,6 @@ export interface FileRouteTypes {
     | '/terms-conditions'
     | '/testimonials'
     | '/thank-you'
-    | '/we-buy-any-houses'
     | '/we-buy-houses-as-is'
     | '/we-buy-houses-fast'
     | '/we-buy-inherited-houses'
@@ -228,7 +208,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/compare'
     | '/contact-us'
-    | '/divorce'
     | '/faq'
     | '/get-a-cash-offer-today'
     | '/home-buyers'
@@ -240,7 +219,6 @@ export interface FileRouteTypes {
     | '/terms-conditions'
     | '/testimonials'
     | '/thank-you'
-    | '/we-buy-any-houses'
     | '/we-buy-houses-as-is'
     | '/we-buy-houses-fast'
     | '/we-buy-inherited-houses'
@@ -250,7 +228,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/compare'
     | '/contact-us'
-    | '/divorce'
     | '/faq'
     | '/get-a-cash-offer-today'
     | '/home-buyers'
@@ -262,7 +239,6 @@ export interface FileRouteTypes {
     | '/terms-conditions'
     | '/testimonials'
     | '/thank-you'
-    | '/we-buy-any-houses'
     | '/we-buy-houses-as-is'
     | '/we-buy-houses-fast'
     | '/we-buy-inherited-houses'
@@ -273,7 +249,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CompareRoute: typeof CompareRoute
   ContactUsRoute: typeof ContactUsRoute
-  DivorceRoute: typeof DivorceRoute
   FaqRoute: typeof FaqRoute
   GetACashOfferTodayRoute: typeof GetACashOfferTodayRoute
   HomeBuyersRoute: typeof HomeBuyersRoute
@@ -285,7 +260,6 @@ export interface RootRouteChildren {
   TermsConditionsRoute: typeof TermsConditionsRoute
   TestimonialsRoute: typeof TestimonialsRoute
   ThankYouRoute: typeof ThankYouRoute
-  WeBuyAnyHousesRoute: typeof WeBuyAnyHousesRoute
   WeBuyHousesAsIsRoute: typeof WeBuyHousesAsIsRoute
   WeBuyHousesFastRoute: typeof WeBuyHousesFastRoute
   WeBuyInheritedHousesRoute: typeof WeBuyInheritedHousesRoute
@@ -312,13 +286,6 @@ declare module '@tanstack/react-router' {
       path: '/we-buy-houses-as-is'
       fullPath: '/we-buy-houses-as-is'
       preLoaderRoute: typeof WeBuyHousesAsIsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/we-buy-any-houses': {
-      id: '/we-buy-any-houses'
-      path: '/we-buy-any-houses'
-      fullPath: '/we-buy-any-houses'
-      preLoaderRoute: typeof WeBuyAnyHousesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/thank-you': {
@@ -398,13 +365,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/divorce': {
-      id: '/divorce'
-      path: '/divorce'
-      fullPath: '/divorce'
-      preLoaderRoute: typeof DivorceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contact-us': {
       id: '/contact-us'
       path: '/contact-us'
@@ -441,7 +401,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CompareRoute: CompareRoute,
   ContactUsRoute: ContactUsRoute,
-  DivorceRoute: DivorceRoute,
   FaqRoute: FaqRoute,
   GetACashOfferTodayRoute: GetACashOfferTodayRoute,
   HomeBuyersRoute: HomeBuyersRoute,
@@ -453,7 +412,6 @@ const rootRouteChildren: RootRouteChildren = {
   TermsConditionsRoute: TermsConditionsRoute,
   TestimonialsRoute: TestimonialsRoute,
   ThankYouRoute: ThankYouRoute,
-  WeBuyAnyHousesRoute: WeBuyAnyHousesRoute,
   WeBuyHousesAsIsRoute: WeBuyHousesAsIsRoute,
   WeBuyHousesFastRoute: WeBuyHousesFastRoute,
   WeBuyInheritedHousesRoute: WeBuyInheritedHousesRoute,
