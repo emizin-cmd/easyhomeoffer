@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BadgeCheck, Check, Quote, Sparkles, Star } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, Quote, Sparkles, Star } from "lucide-react";
 import { buildSeo } from "@/lib/seo";
 import { LeadForm } from "@/components/LeadForm";
 import { GoogleGLogo } from "@/components/GoogleReviewCard";
-import { ScrollOfferCta } from "@/components/ScrollOfferCta";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import skyline from "../assets/skyline.jpg";
@@ -23,6 +22,11 @@ export const Route = createFileRoute("/get-a-cash-offer-today")({
         "Sell your Twin Cities house this week. Fair all-cash offer in 24 hours. No fees, no repairs, no agent commissions. Call 612-445-5250.",
     }),
 });
+
+const scrollToOffer = () =>
+  document
+    .getElementById("offer")
+    ?.scrollIntoView({ behavior: "smooth", block: "center" });
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -242,7 +246,16 @@ function GetACashOfferTodayPage() {
             </p>
           </div>
 
-          <ScrollOfferCta />
+          <div className="my-10 flex justify-center md:my-12">
+            <button
+              type="button"
+              onClick={scrollToOffer}
+              className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-[#f97316] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c]"
+            >
+              Get Cash Offer
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
       </section>
 
@@ -280,7 +293,16 @@ function GetACashOfferTodayPage() {
             </footer>
           </div>
 
-          <ScrollOfferCta />
+          <div className="my-10 flex justify-center md:my-12">
+            <button
+              type="button"
+              onClick={scrollToOffer}
+              className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-[#f97316] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c]"
+            >
+              Get Cash Offer
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
       </section>
 
@@ -329,7 +351,16 @@ function GetACashOfferTodayPage() {
             <span className="font-semibold text-foreground">achieve all of these.</span>
           </p>
 
-          <ScrollOfferCta />
+          <div className="my-10 flex justify-center md:my-12">
+            <button
+              type="button"
+              onClick={scrollToOffer}
+              className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-[#f97316] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c]"
+            >
+              Get Cash Offer
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
       </section>
 
