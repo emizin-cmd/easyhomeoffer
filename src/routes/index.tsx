@@ -393,14 +393,14 @@ function Index() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-10 md:gap-14 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
           <div>
             <div className="flex justify-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-border bg-secondary/60 py-1 pl-1.5 pr-3.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 <img
                   src={bbbAPlus}
                   alt="BBB A+ Rating"
                   width={32}
                   height={32}
                   decoding="async"
-                  className="h-4 w-auto"
+                  className="h-5 w-auto shrink-0"
                 />
                 Twin Cities cash buyer · BBB A+ rated
               </div>
