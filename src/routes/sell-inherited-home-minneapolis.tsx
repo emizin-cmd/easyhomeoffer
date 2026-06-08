@@ -1,7 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BadgeCheck, ShieldCheck, Sparkles, Star } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  BadgeCheck,
+  Boxes,
+  ClipboardList,
+  FileText,
+  Handshake,
+  Phone,
+  Scale,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Users,
+  Wrench,
+} from "lucide-react";
 import { buildSeo } from "@/lib/seo";
 import { LeadForm } from "@/components/LeadForm";
+import { CompareTable } from "@/components/CompareTable";
+import { ReviewsCarousel } from "@/components/ReviewsCarousel";
+import { FaqAccordion, type FaqEntry } from "@/components/FaqAccordion";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import skyline from "../assets/skyline.jpg";
@@ -13,9 +30,86 @@ export const Route = createFileRoute("/sell-inherited-home-minneapolis")({
       path: "/sell-inherited-home-minneapolis",
       title: "Sell an Inherited Home in Minneapolis | Easy Home Offer",
       description:
-        "Inherited a Twin Cities house you don't want? We buy inherited homes for cash. No probate stress, no repairs, no commissions. Close in 7 days.",
+        "Inherited a Twin Cities house you don't want? We buy inherited homes for cash. No probate stress, no repairs, no cleanouts. Close in 7 days.",
     }),
 });
+
+const BENEFITS: { icon: LucideIcon; title: string; body: string }[] = [
+  {
+    icon: Boxes,
+    title: "We handle the cleanout",
+    body:
+      "Leave the clothes, dishes, photos, furniture, the lawnmower in the garage. We donate what's reusable and dispose of the rest. You don't lift a single box.",
+  },
+  {
+    icon: Scale,
+    title: "No probate wait",
+    body:
+      "We can write the offer while the estate is still in probate. We coordinate directly with your attorney so we close the day the court releases the property.",
+  },
+  {
+    icon: Users,
+    title: "Heirs in different states? Fine.",
+    body:
+      "The title company handles remote signings via mobile notary, so siblings in California, Florida, or Texas can sign without flying in. Proceeds wire to each heir.",
+  },
+  {
+    icon: Wrench,
+    title: "Decades of deferred maintenance",
+    body:
+      "Old roof, ancient furnace, knob-and-tube wiring, a basement nobody's been in for 20 years — we expect all of it. Our offer reflects real condition, not best-case repairs.",
+  },
+];
+
+const STEPS: { n: string; icon: LucideIcon; title: string; body: string }[] = [
+  {
+    n: "01",
+    icon: ClipboardList,
+    title: "Tell us about the property",
+    body:
+      "Fill out the short form or call. Address, rough condition, and where the estate is in probate. Five minutes.",
+  },
+  {
+    n: "02",
+    icon: Phone,
+    title: "We do a quick walkthrough",
+    body:
+      "We can meet a family member there or do it solo with a lockbox code. No prep, no staging, no showings.",
+  },
+  {
+    n: "03",
+    icon: FileText,
+    title: "Written cash offer in 24 hours",
+    body:
+      "Proof of funds attached. No contingencies on financing or appraisal. The number you see is the number that closes.",
+  },
+  {
+    n: "04",
+    icon: Handshake,
+    title: "Close at a local title company",
+    body:
+      "Proceeds wire to the estate account or split to individual heirs per your attorney's instructions. We handle every detail.",
+  },
+];
+
+const FAQS: FaqEntry[] = [
+  {
+    q: "Do I need to clean out the house first?",
+    a: "No. Leave everything. We've bought houses with full attics, basements packed to the rafters, and kitchen cabinets still full. We donate what's usable to local charities and dispose of the rest — at no cost to you.",
+  },
+  {
+    q: "Does probate need to be fully closed before we can sell?",
+    a: "No. We can write the offer while the estate is still in probate. Once you accept, we coordinate directly with your probate attorney so the closing lines up with the court's release of the property. Many estates close the day the property is released.",
+  },
+  {
+    q: "What if the heirs live in different states?",
+    a: "That's normal for us. The title company handles remote signings using mobile notaries. Heirs in any state can sign without flying in. Sale proceeds wire directly to each heir's account per the estate's distribution.",
+  },
+  {
+    q: "Will the estate owe capital gains tax?",
+    a: "Inherited property typically gets a 'step-up in basis' to fair market value at the date of death, which usually means little or no capital gains on a near-term sale. We're not CPAs, though — please confirm specifics with your tax advisor.",
+  },
+];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -65,8 +159,8 @@ function SellInheritedHomeMinneapolisPage() {
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg lg:mx-0 lg:text-left">
               We buy inherited Minneapolis &amp; St. Paul homes for cash. No probate
-              red tape on your end, no repairs, no commissions — just a fair offer
-              and a closing date that works for the whole family.
+              red tape on your end, no repairs, no cleanout — just a fair offer and a
+              closing date that works for the whole family.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground lg:justify-start">
@@ -110,36 +204,147 @@ function SellInheritedHomeMinneapolisPage() {
         </div>
       </section>
 
-      {/* INTRO */}
-      <section className="relative py-10 md:py-16">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{
-            background:
-              "radial-gradient(55% 45% at 15% 0%, color-mix(in oklab, var(--primary) 9%, transparent), transparent 70%), radial-gradient(50% 40% at 100% 100%, color-mix(in oklab, var(--primary) 6%, transparent), transparent 70%)",
-          }}
-        />
+      {/* BENEFITS */}
+      <section className="border-y border-border/60 bg-secondary/40 py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel>Built for inherited homes</SectionLabel>
+            <h2 className="mt-5 font-heading text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+              The hardest parts —{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                we already solve for them.
+              </span>
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {BENEFITS.map((b) => {
+              const Icon = b.icon;
+              return (
+                <div
+                  key={b.title}
+                  className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+                >
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-5 font-heading text-lg font-bold leading-snug tracking-tight">
+                    {b.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80">{b.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* TIMELINE */}
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel>The process · From form to funds</SectionLabel>
+            <h2 className="mt-5 font-heading text-3xl font-bold tracking-tight md:text-4xl">
+              4 steps, often in{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                under 2 weeks.
+              </span>
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((step) => {
+              const Icon = step.icon;
+              return (
+                <div
+                  key={step.n}
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+                >
+                  <div
+                    className="bg-clip-text font-heading text-4xl font-black tabular-nums tracking-tight text-transparent"
+                    style={{ backgroundImage: "var(--gradient-primary)" }}
+                  >
+                    {step.n}
+                  </div>
+                  <div className="mt-4 flex items-center gap-2">
+                    <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <h3 className="font-heading text-base font-bold leading-snug tracking-tight">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/80">{step.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* COMPARE */}
+      <section className="border-y border-border/60 bg-secondary/40 py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel>Direct vs. an agent</SectionLabel>
+            <h2 className="mt-5 font-heading text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+              For inherited homes, the numbers{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                rarely favor listing.
+              </span>
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Once you account for commissions, repairs, holding costs, and the months an
+              empty inherited house sits on the market, the agent route often nets less.
+            </p>
+          </div>
+          <div className="mt-10">
+            <CompareTable />
+          </div>
+        </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel>Real homeowners. Real stories.</SectionLabel>
+            <h2 className="mt-5 font-heading text-3xl font-bold tracking-tight md:text-4xl">
+              Trusted across the Twin Cities
+            </h2>
+          </div>
+          <div className="mt-14">
+            <ReviewsCarousel />
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="border-y border-border/60 bg-secondary/40 py-16 md:py-24">
         <div className="mx-auto max-w-3xl px-6">
-          <div className="space-y-5 text-[15px] leading-relaxed text-foreground/80">
-            <p>
-              Inheriting a house can be a gift and a burden at the same time. Between
-              probate timelines, lingering bills, repairs you never planned for, and
-              family members spread across different states, just deciding what to do
-              with the property can feel overwhelming.
-            </p>
-            <p>
-              We work with executors, siblings, and out-of-state heirs every month.
-              You don’t need to clean the place out. You don’t need to fix anything.
-              You don’t need to drive across the country. We handle every detail and
-              close at a local title company on your timeline.
-            </p>
-            <p>
-              Whether the estate is fully through probate or you’re still working
-              with an attorney, tell us about the property and we’ll walk you
-              through what selling to us would actually look like — with zero
-              pressure.
-            </p>
+          <div className="text-center">
+            <SectionLabel>Inherited home questions</SectionLabel>
+            <h2 className="mt-5 font-heading text-3xl font-bold tracking-tight md:text-4xl">
+              The questions{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                heirs ask first.
+              </span>
+            </h2>
+          </div>
+          <div className="mt-10">
+            <FaqAccordion items={FAQS} />
           </div>
         </div>
       </section>

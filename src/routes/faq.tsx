@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { buildSeo } from "@/lib/seo";
-import { ChevronDown, MessageCircleQuestion, Phone, Sparkles } from "lucide-react";
+import { MessageCircleQuestion, Phone, Sparkles } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
+import { FaqAccordion, type FaqEntry } from "@/components/FaqAccordion";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import skyline from "../assets/skyline.jpg";
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/faq")({
 const PHONE_DISPLAY = "612-445-5250";
 const PHONE_TEL = "6124455250";
 
-const FAQS: { q: string; a: React.ReactNode }[] = [
+const FAQS: FaqEntry[] = [
   {
     q: "Will you be listing my house on the MLS or actually buying it?",
     a: "Great question. We're not agents, and we don't list houses. We are professional home buyers: We buy houses in Minneapolis that meet our purchasing criteria. From there we may repair the house and resell it to another home owner or keep it as a rental ourselves.",
@@ -68,8 +68,6 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
 ];
 
 function FaqPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
@@ -146,18 +144,7 @@ function FaqPage() {
           }}
         />
         <div className="mx-auto max-w-3xl px-6">
-          <div className="space-y-4">
-            {FAQS.map((item, i) => (
-              <FaqItem
-                key={i}
-                index={i}
-                question={item.q}
-                answer={item.a}
-                open={openIndex === i}
-                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-              />
-            ))}
-          </div>
+          <FaqAccordion items={FAQS} />
 
           {/* Still have questions card */}
           <div className="relative mt-12 rounded-2xl bg-foreground p-8 text-background shadow-[var(--shadow-elegant)]">
@@ -190,71 +177,6 @@ function FaqPage() {
       </section>
 
       <SiteFooter />
-    </div>
-  );
-}
-
-function FaqItem({
-  question,
-  answer,
-  index,
-  open,
-  onToggle,
-}: {
-  question: string;
-  answer: React.ReactNode;
-  index: number;
-  open: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <div
-      className={`group overflow-hidden rounded-2xl border transition-all ${
-        open
-          ? "border-primary/40 bg-card shadow-[var(--shadow-soft)]"
-          : "border-border bg-card/60 hover:border-primary/30 hover:bg-card"
-      }`}
-    >
-      <button
-        onClick={onToggle}
-        className="flex w-full items-start gap-4 px-5 py-5 text-left sm:px-6"
-      >
-        <div
-          className={`font-heading text-xl font-black tabular-nums leading-none ${
-            open ? "text-transparent" : "text-muted-foreground/50"
-          }`}
-          style={
-            open
-              ? {
-                  backgroundImage: "var(--gradient-primary)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                }
-              : undefined
-          }
-        >
-          {String(index + 1).padStart(2, "0")}
-        </div>
-        <h3 className="flex-1 font-heading text-base font-bold leading-snug tracking-tight text-foreground sm:text-lg">
-          {question}
-        </h3>
-        <ChevronDown
-          className={`mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-transform ${
-            open ? "rotate-180 text-primary" : ""
-          }`}
-        />
-      </button>
-      <div
-        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <div className="space-y-3 border-t border-border/60 px-5 py-5 pl-[52px] text-[15px] leading-relaxed text-foreground/80 sm:px-6 sm:pl-[60px]">
-            {typeof answer === "string" ? <p>{answer}</p> : answer}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

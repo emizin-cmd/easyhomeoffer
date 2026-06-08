@@ -25,8 +25,8 @@ import bbbAPlus from "../assets/bbb-a-plus.png";
 import avatar1 from "../assets/avatar-1.jpg";
 import avatar2 from "../assets/avatar-2.jpg";
 import avatar3 from "../assets/avatar-3.jpg";
-import { GoogleReviewCard, GoogleGLogo } from "@/components/GoogleReviewCard";
-import { GOOGLE_REVIEWS } from "@/lib/google-reviews";
+import { GoogleGLogo } from "@/components/GoogleReviewCard";
+import { ReviewsCarousel } from "@/components/ReviewsCarousel";
 
 
 export const Route = createFileRoute("/")({
@@ -787,45 +787,8 @@ function Index() {
             </h2>
           </div>
 
-          {/* MOBILE: manual horizontal scroll, NO autoplay. Single set of cards
-              (no DOM duplication needed) with snap-x for tactile swipe feel. */}
-          <div
-            className="mt-14 -mx-6 overflow-x-auto pb-4 [scrollbar-width:thin] snap-x snap-mandatory md:hidden"
-            aria-label="Customer reviews — swipe to see more"
-          >
-            <div className="flex gap-6 px-6">
-              {GOOGLE_REVIEWS.map((review) => (
-                <div key={review.name} className="w-[300px] shrink-0 snap-start">
-                  <GoogleReviewCard review={review} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* DESKTOP: auto-scrolling marquee. Duplicates cards in DOM so the
-              -50% translation creates a seamless loop. Pauses on hover so users
-              can read individual reviews. Respects prefers-reduced-motion. */}
-          <div
-            className="mt-14 -mx-6 hidden overflow-hidden pb-4 md:block"
-            aria-label="Customer reviews carousel"
-          >
-            <div className="animate-marquee flex gap-6 pl-6">
-              {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
-                <div
-                  key={`${review.name}-${i}`}
-                  className="w-[380px] shrink-0"
-                  aria-hidden={i >= GOOGLE_REVIEWS.length}
-                >
-                  <GoogleReviewCard review={review} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Hint differs per viewport: swipe on mobile, hover-to-pause on desktop. */}
-          <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground/70">
-            <span className="md:hidden">Swipe to see more</span>
-            <span className="hidden md:inline">Hover to pause</span>
+          <div className="mt-14">
+            <ReviewsCarousel />
           </div>
         </div>
       </section>
