@@ -472,13 +472,13 @@ function Index() {
                 to left-aligned at md+ to match the surrounding text column. */}
             <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground md:mt-10 md:justify-start md:gap-x-8 md:gap-y-3">
               {/* Google Reviews snippet */}
-              <div className="flex items-center gap-1.5">
-                <GoogleGLogo className="h-4 w-4 shrink-0" />
+              <div className="flex items-center gap-2">
+                <GoogleGLogo className="h-5 w-5 shrink-0" />
                 <div className="flex">
                   {[0, 1, 2, 3, 4].map((i) => (
                     <Star
                       key={i}
-                      className="h-4 w-4 fill-[#FBBC05] text-[#FBBC05]"
+                      className="h-5 w-5 fill-[#FBBC05] text-[#FBBC05]"
                       strokeWidth={0}
                     />
                   ))}
@@ -488,8 +488,8 @@ function Index() {
               </div>
 
               {/* Years in business */}
-              <div className="flex items-center gap-1.5">
-                <BadgeCheck className="h-4 w-4 text-primary" />
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="h-5 w-5 shrink-0 text-primary" />
                 15+ years in business
               </div>
 
@@ -498,7 +498,7 @@ function Index() {
                 href="https://www.bbb.org/us/mn/maple-grove/profile/real-estate-investing/twin-cities-home-buyers-inc-0704-96005623"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 transition hover:opacity-80"
+                className="flex items-center gap-2 transition hover:opacity-80"
               >
                 <img
                   src={bbbAPlus}
@@ -506,7 +506,7 @@ function Index() {
                   width={32}
                   height={32}
                   decoding="async"
-                  className="h-4 w-auto"
+                  className="h-5 w-auto shrink-0"
                 />
                 <span>BBB A+ Rated</span>
               </a>
