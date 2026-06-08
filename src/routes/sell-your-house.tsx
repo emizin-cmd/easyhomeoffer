@@ -234,7 +234,7 @@ function SellYourHousePage() {
           <button
             type="button"
             onClick={scrollToOffer}
-            className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-3.5 text-sm font-semibold text-background shadow-lg transition hover:translate-y-[-1px] hover:shadow-xl"
+            className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-[#f97316] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c]"
           >
             Get My Cash Offer
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -283,7 +283,7 @@ function SellYourHousePage() {
             <button
               type="button"
               onClick={scrollToOffer}
-              className="group mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-3.5 text-sm font-semibold text-background shadow-lg transition hover:translate-y-[-1px] hover:shadow-xl"
+              className="group mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#f97316] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c]"
             >
               Get My Cash Offer
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -318,7 +318,7 @@ function SellYourHousePage() {
             <button
               type="button"
               onClick={scrollToOffer}
-              className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-3.5 text-sm font-semibold text-background shadow-lg transition hover:translate-y-[-1px] hover:shadow-xl"
+              className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-[#f97316] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c]"
             >
               Get My Cash Offer
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -389,7 +389,7 @@ function SellYourHousePage() {
           <button
             type="button"
             onClick={scrollToOffer}
-            className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-3.5 text-sm font-semibold text-background shadow-lg transition hover:translate-y-[-1px] hover:shadow-xl"
+            className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-[#f97316] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c]"
           >
             Get My Cash Offer
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />

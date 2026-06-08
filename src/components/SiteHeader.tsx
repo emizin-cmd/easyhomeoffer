@@ -83,7 +83,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href={`tel:${PHONE_TEL}`}
-            className="hidden items-center gap-2 rounded-full bg-[#f97316] px-4 py-2 text-sm font-semibold text-background transition hover:opacity-90 sm:inline-flex md:bg-foreground"
+            className="hidden items-center gap-2 rounded-full bg-[#f97316] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#ea580c] hover:shadow-md active:bg-[#c2410c] sm:inline-flex"
           >
             <Phone className="h-4 w-4" />
             {PHONE_DISPLAY}
@@ -171,7 +171,7 @@ export function SiteHeader() {
                 <a
                   href={`tel:${PHONE_TEL}`}
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-full bg-foreground px-4 py-3 text-sm font-semibold text-background transition hover:opacity-90"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#f97316] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#ea580c] hover:shadow-md active:bg-[#c2410c]"
                 >
                   <Phone className="h-4 w-4" />
                   {PHONE_DISPLAY}
