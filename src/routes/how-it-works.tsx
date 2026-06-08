@@ -450,38 +450,6 @@ function HowItWorksPage() {
         </div>
       </section>
 
-      {/* CTA — Lead form */}
-      <section className="relative overflow-hidden border-t border-border/60 py-12 md:py-20">
-        <div
-          className="pointer-events-none absolute -bottom-32 -right-32 h-[500px] w-[500px] rounded-full opacity-30 blur-3xl"
-          style={{ background: "var(--gradient-primary)" }}
-          aria-hidden
-        />
-        <div className="relative mx-auto max-w-3xl px-6">
-          <div className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
-            <div className="text-center">
-              <SectionLabel>Get started</SectionLabel>
-              <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-                See what we can offer you for your{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "var(--gradient-primary)" }}
-                >
-                  house today
-                </span>
-                .
-              </h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Fill out the form below and we'll get back to you within 48 hours with a fair,
-                no-obligation cash offer.
-              </p>
-            </div>
-            <div className="mt-8">
-              <LeadForm />
-            </div>
-          </div>
-        </div>
-      </section>
       <SiteFooter />
     </div>
   );

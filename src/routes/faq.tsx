@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { buildSeo } from "@/lib/seo";
-import { ChevronDown, HelpCircle, MessageCircleQuestion, Phone, Sparkles } from "lucide-react";
+import { ChevronDown, MessageCircleQuestion, Phone, Sparkles } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -189,40 +189,6 @@ function FaqPage() {
         </div>
       </section>
 
-      {/* Lead form CTA */}
-      <section className="relative overflow-hidden border-t border-border/60 py-12 md:py-20">
-        <div
-          className="pointer-events-none absolute -bottom-32 -left-32 h-[500px] w-[500px] rounded-full opacity-30 blur-3xl"
-          style={{ background: "var(--gradient-primary)" }}
-          aria-hidden
-        />
-        <div className="relative mx-auto max-w-3xl px-6">
-          <div className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
-            <div className="text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                <HelpCircle className="h-3 w-3 text-primary" />
-                No obligation, ever
-              </div>
-              <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-                Get your{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "var(--gradient-primary)" }}
-                >
-                  fair cash offer
-                </span>{" "}
-                now
-              </h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Fill out the form and we'll get back to you within 48 hours.
-              </p>
-            </div>
-            <div className="mt-8">
-              <LeadForm />
-            </div>
-          </div>
-        </div>
-      </section>
       <SiteFooter />
     </div>
   );
