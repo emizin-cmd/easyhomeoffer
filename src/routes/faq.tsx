@@ -86,30 +86,52 @@ function FaqPage() {
           style={{ background: "var(--gradient-primary)" }}
           aria-hidden
         />
-        <div className="relative mx-auto max-w-4xl px-6 py-10 md:py-20 text-center lg:py-28">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            <Sparkles className="h-3 w-3 text-primary" />
-            Frequently asked questions
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-10 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
+          <div>
+            <div className="flex justify-center lg:justify-start">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                <Sparkles className="h-3 w-3 text-primary" />
+                Frequently asked questions
+              </div>
+            </div>
+            <h1 className="mt-5 text-center text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-left lg:text-6xl">
+              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                Everything you wanted
+              </span>{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                to know.
+              </span>
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg lg:mx-0 lg:text-left">
+              Working with a professional home buyer can be confusing. Here are the questions we hear
+              most often — read through to find what you're looking for. Still stuck?{" "}
+              <Link to="/contact-us" className="font-medium text-primary hover:underline">
+                Reach out anytime
+              </Link>
+              .
+            </p>
           </div>
-          <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-6xl">
-            <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-              Everything you wanted
-            </span>{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "var(--gradient-primary)" }}
-            >
-              to know.
-            </span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg">
-            Working with a professional home buyer can be confusing. Here are the questions we hear
-            most often — read through to find what you're looking for. Still stuck?{" "}
-            <Link to="/contact-us" className="font-medium text-primary hover:underline">
-              Reach out anytime
-            </Link>
-            .
-          </p>
+
+          {/* Offer card */}
+          <div id="offer" className="relative">
+            <div
+              className="absolute -inset-4 rounded-[2rem] opacity-20 blur-2xl"
+              style={{ background: "var(--gradient-primary)" }}
+              aria-hidden
+            />
+            <div className="relative rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold tracking-tight">Get your free cash offer</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Takes 60 seconds · No obligation · Reply within 24h
+                </p>
+              </div>
+              <LeadForm />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -175,7 +197,7 @@ function FaqPage() {
           aria-hidden
         />
         <div className="relative mx-auto max-w-3xl px-6">
-          <div id="offer" className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
+          <div className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
             <div className="text-center">
               <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 <HelpCircle className="h-3 w-3 text-primary" />

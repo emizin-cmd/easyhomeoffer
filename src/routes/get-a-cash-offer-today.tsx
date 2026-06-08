@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Check, Quote, Sparkles, Star } from "lucide-react";
+import { Check, Quote, Sparkles, Star } from "lucide-react";
 import { buildSeo } from "@/lib/seo";
 import { LeadForm } from "@/components/LeadForm";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -34,11 +34,6 @@ const COMMON_POINTS = [
 ];
 
 function GetACashOfferTodayPage() {
-  const scrollToOffer = () =>
-    document
-      .getElementById("offer")
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
@@ -59,36 +54,47 @@ function GetACashOfferTodayPage() {
           style={{ background: "var(--gradient-primary)" }}
           aria-hidden
         />
-        <div className="relative mx-auto max-w-4xl px-6 py-10 md:py-20 text-center lg:py-28">
-          <SectionLabel>Get a cash offer · Today</SectionLabel>
-          <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-6xl">
-            <span className="block bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-              Sell Your House This Week
-            </span>
-            <span className="mt-3 block bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-              We Buy Minneapolis Houses Fast!
-            </span>
-            <span
-              className="mt-3 block bg-clip-text text-transparent"
-              style={{ backgroundImage: "var(--gradient-primary)" }}
-            >
-              … And Give You A Fair Cash Offer
-            </span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg">
-            No repairs. No showings. No agent fees. Just a fair offer and a closing date
-            that works for you.
-          </p>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-10 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
+          <div>
+            <div className="flex justify-center lg:justify-start">
+              <SectionLabel>Get a cash offer · Today</SectionLabel>
+            </div>
+            <h1 className="mt-5 text-center text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-left lg:text-6xl">
+              <span className="block bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                Sell Your House This Week
+              </span>
+              <span className="mt-3 block bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                We Buy Minneapolis Houses Fast!
+              </span>
+              <span
+                className="mt-3 block bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                … And Give You A Fair Cash Offer
+              </span>
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg lg:mx-0 lg:text-left">
+              No repairs. No showings. No agent fees. Just a fair offer and a closing date
+              that works for you.
+            </p>
+          </div>
 
-          <div className="my-10 flex justify-center md:my-12 lg:hidden">
-            <button
-              type="button"
-              onClick={scrollToOffer}
-              className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-3.5 text-sm font-semibold text-background shadow-lg transition hover:translate-y-[-1px] hover:shadow-xl"
-            >
-              Get My Cash Offer
-              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </button>
+          {/* Offer card */}
+          <div id="offer" className="relative">
+            <div
+              className="absolute -inset-4 rounded-[2rem] opacity-20 blur-2xl"
+              style={{ background: "var(--gradient-primary)" }}
+              aria-hidden
+            />
+            <div className="relative rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold tracking-tight">Get your free cash offer</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Takes 60 seconds · No obligation · Reply within 24h
+                </p>
+              </div>
+              <LeadForm />
+            </div>
           </div>
         </div>
       </section>
@@ -225,7 +231,7 @@ function GetACashOfferTodayPage() {
           aria-hidden
         />
         <div className="relative mx-auto max-w-3xl px-6">
-          <div id="offer" className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
+          <div className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
             <div className="text-center">
               <SectionLabel>Get started</SectionLabel>
               <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">

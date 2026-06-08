@@ -86,23 +86,45 @@ function HowItWorksPage() {
           style={{ background: "var(--gradient-primary)" }}
           aria-hidden
         />
-        <div className="relative mx-auto max-w-4xl px-6 py-10 md:py-20 text-center lg:py-28">
-          <SectionLabel>Our process</SectionLabel>
-          <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-6xl">
-            <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-              4 Steps To Sell Your House
-            </span>{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "var(--gradient-primary)" }}
-            >
-              Quickly and Easily.
-            </span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg">
-            When you work with a realtor, you'll find there is a long process to selling your house.
-            With Twin Cities Home Buyers, we cut through the red tape and make it simple.
-          </p>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-10 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
+          <div>
+            <div className="flex justify-center lg:justify-start">
+              <SectionLabel>Our process</SectionLabel>
+            </div>
+            <h1 className="mt-5 text-center text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-left lg:text-6xl">
+              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                4 Steps To Sell Your House
+              </span>{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                Quickly and Easily.
+              </span>
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg lg:mx-0 lg:text-left">
+              When you work with a realtor, you'll find there is a long process to selling your house.
+              With Twin Cities Home Buyers, we cut through the red tape and make it simple.
+            </p>
+          </div>
+
+          {/* Offer card */}
+          <div id="offer" className="relative">
+            <div
+              className="absolute -inset-4 rounded-[2rem] opacity-20 blur-2xl"
+              style={{ background: "var(--gradient-primary)" }}
+              aria-hidden
+            />
+            <div className="relative rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold tracking-tight">Get your free cash offer</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Takes 60 seconds · No obligation · Reply within 24h
+                </p>
+              </div>
+              <LeadForm />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -436,7 +458,7 @@ function HowItWorksPage() {
           aria-hidden
         />
         <div className="relative mx-auto max-w-3xl px-6">
-          <div id="offer" className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
+          <div className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12">
             <div className="text-center">
               <SectionLabel>Get started</SectionLabel>
               <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">

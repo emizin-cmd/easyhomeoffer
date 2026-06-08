@@ -84,24 +84,46 @@ function ComparePage() {
           style={{ background: "var(--gradient-primary)" }}
           aria-hidden
         />
-        <div className="relative mx-auto max-w-4xl px-6 py-10 md:py-20 text-center lg:py-28">
-          <SectionLabel>Side-by-side</SectionLabel>
-          <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-6xl">
-            <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-              Selling to Twin Cities Home Buyers
-            </span>{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "var(--gradient-primary)" }}
-            >
-              vs. a Minnesota agent.
-            </span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg">
-            There are real differences between selling the traditional way through a realtor and
-            selling to professional home buyers. Before you list, take a look at all your options —
-            the open market isn't always the better deal.
-          </p>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-10 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
+          <div>
+            <div className="flex justify-center lg:justify-start">
+              <SectionLabel>Side-by-side</SectionLabel>
+            </div>
+            <h1 className="mt-5 text-center text-4xl font-bold leading-[1.05] tracking-tight md:mt-6 md:text-5xl lg:text-left lg:text-6xl">
+              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                Selling to Twin Cities Home Buyers
+              </span>{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                vs. a Minnesota agent.
+              </span>
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground md:mt-6 md:text-lg lg:mx-0 lg:text-left">
+              There are real differences between selling the traditional way through a realtor and
+              selling to professional home buyers. Before you list, take a look at all your options —
+              the open market isn't always the better deal.
+            </p>
+          </div>
+
+          {/* Offer card */}
+          <div id="offer" className="relative">
+            <div
+              className="absolute -inset-4 rounded-[2rem] opacity-20 blur-2xl"
+              style={{ background: "var(--gradient-primary)" }}
+              aria-hidden
+            />
+            <div className="relative rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold tracking-tight">Get your free cash offer</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Takes 60 seconds · No obligation · Reply within 24h
+                </p>
+              </div>
+              <LeadForm />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -510,7 +532,6 @@ function ComparePage() {
 
       {/* CTA — Lead form */}
       <section
-        id="offer"
         className="relative overflow-hidden border-t border-border/60 py-12 md:py-20"
       >
         <div
