@@ -18,7 +18,7 @@ export function ScrollOfferCta({ label = "Get Cash Offer" }: { label?: string })
       <button
         type="button"
         onClick={scrollToOffer}
-        className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#f97316] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fb923c]/60"
+        className="group flex w-full max-w-md items-center justify-center gap-2.5 rounded-full bg-[#f97316] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#ea580c] hover:shadow-xl active:translate-y-0 active:bg-[#c2410c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fb923c]/60"
       >
         {label}
         <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" strokeWidth={2.5} />
