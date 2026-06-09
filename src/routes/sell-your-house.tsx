@@ -265,9 +265,6 @@ function SellYourHousePage() {
             </div>
           ))}
         </div>
-        <div className="mx-auto max-w-7xl px-6 pb-10">
-          <ScrollOfferCta />
-        </div>
       </section>
 
       {/* RICHARD'S STORY */}
