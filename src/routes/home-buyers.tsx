@@ -289,11 +289,11 @@ function HomeBuyersPage() {
       </section>
 
       {/* BENEFITS */}
-      <section className="border-y border-border/60 bg-secondary/40 py-16 md:py-24">
+      <section className="border-y border-border/60 bg-secondary/40 py-10 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-2xl text-center">
             <SectionLabel>What sets us apart</SectionLabel>
-            <h2 className="mt-5 font-heading text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+            <h2 className="mt-4 font-heading text-2xl font-bold leading-tight tracking-tight md:mt-5 md:text-4xl">
               The same buyer, same office,{" "}
               <span
                 className="bg-clip-text text-transparent"
@@ -304,18 +304,18 @@ function HomeBuyersPage() {
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6 md:mt-12 lg:grid-cols-4">
             {BENEFITS.map((b) => {
               const Icon = b.icon;
               return (
                 <div
                   key={b.title}
-                  className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+                  className="rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg md:p-7"
                 >
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary">
-                    <Icon className="h-5 w-5" />
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary md:h-12 md:w-12">
+                    <Icon className="h-4 w-4 md:h-5 md:w-5" />
                   </div>
-                  <h3 className="mt-5 font-heading text-lg font-bold leading-snug tracking-tight">
+                  <h3 className="mt-4 font-heading text-base font-bold leading-snug tracking-tight md:mt-5 md:text-lg">
                     {b.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-foreground/80">{b.body}</p>
@@ -329,11 +329,11 @@ function HomeBuyersPage() {
       </section>
 
       {/* TIMELINE */}
-      <section className="py-16 md:py-24">
+      <section className="py-10 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-2xl text-center">
             <SectionLabel>How we actually buy</SectionLabel>
-            <h2 className="mt-5 font-heading text-3xl font-bold tracking-tight md:text-4xl">
+            <h2 className="mt-4 font-heading text-2xl font-bold tracking-tight md:mt-5 md:text-4xl">
               From first call to{" "}
               <span
                 className="bg-clip-text text-transparent"
@@ -344,29 +344,29 @@ function HomeBuyersPage() {
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6 md:mt-12 lg:grid-cols-4">
             {STEPS.map((step) => {
               const Icon = step.icon;
               return (
                 <div
                   key={step.n}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg md:p-6"
                 >
                   <div
-                    className="bg-clip-text font-heading text-4xl font-black tabular-nums tracking-tight text-transparent"
+                    className="bg-clip-text font-heading text-3xl font-black tabular-nums tracking-tight text-transparent md:text-4xl"
                     style={{ backgroundImage: "var(--gradient-primary)" }}
                   >
                     {step.n}
                   </div>
-                  <div className="mt-4 flex items-center gap-2">
-                    <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary/10 text-primary">
-                      <Icon className="h-4 w-4" />
+                  <div className="mt-3 flex items-center gap-2 md:mt-4">
+                    <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary/10 text-primary md:h-8 md:w-8">
+                      <Icon className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     </span>
                     <h3 className="font-heading text-base font-bold leading-snug tracking-tight">
                       {step.title}
                     </h3>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-foreground/80">{step.body}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80 md:mt-3">{step.body}</p>
                 </div>
               );
             })}
