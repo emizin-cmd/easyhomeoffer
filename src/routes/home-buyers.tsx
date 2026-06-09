@@ -409,8 +409,6 @@ function HomeBuyersPage() {
           <div className="mt-14">
             <ReviewsCarousel />
           </div>
-
-          <ScrollOfferCta />
         </div>
       </section>
 
@@ -432,6 +430,8 @@ function HomeBuyersPage() {
           <div className="mt-10">
             <FaqAccordion items={FAQS} />
           </div>
+
+          <ScrollOfferCta />
         </div>
       </section>
 
