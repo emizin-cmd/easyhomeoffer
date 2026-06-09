@@ -398,8 +398,6 @@ function WeBuyInheritedHousesPage() {
           <div className="mt-10">
             <CompareTable />
           </div>
-
-          <ScrollOfferCta />
         </div>
       </section>
 
