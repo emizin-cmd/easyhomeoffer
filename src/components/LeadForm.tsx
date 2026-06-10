@@ -11,6 +11,22 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as
   | string
   | undefined;
 
+// TEMP DIAGNOSTIC — remove once root cause of the production autocomplete bug
+// is identified. Logs at module evaluation in both the browser bundle (visible
+// in DevTools Console on easyhomeoffer.com) and the SSR bundle (visible in
+// Vercel function logs). If the browser log shows `false`, Vite did NOT inline
+// VITE_GOOGLE_MAPS_API_KEY into the client bundle and the issue is a Vercel
+// env-var scoping/build-cache problem, NOT a code bug.
+console.log(
+  "[Maps Debug] Key state:",
+  !!import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+);
+if (!GOOGLE_MAPS_API_KEY) {
+  console.error(
+    "[Maps Debug] Google Maps API Key is completely missing from the build environment!",
+  );
+}
+
 // Zapier "Webhooks by Zapier" Catch Hook URL. POSTs the form payload as JSON
 // when validation passes.
 //
