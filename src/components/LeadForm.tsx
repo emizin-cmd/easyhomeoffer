@@ -7,9 +7,7 @@ import {
   type GoogleMapsPlacesAutocomplete,
 } from "@/lib/google-maps";
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as
-  | string
-  | undefined;
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
 
 // TEMP DIAGNOSTIC — remove once root cause of the production autocomplete bug
 // is identified. Logs at module evaluation in both the browser bundle (visible
@@ -17,10 +15,7 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as
 // Vercel function logs). If the browser log shows `false`, Vite did NOT inline
 // VITE_GOOGLE_MAPS_API_KEY into the client bundle and the issue is a Vercel
 // env-var scoping/build-cache problem, NOT a code bug.
-console.log(
-  "[Maps Debug] Key state:",
-  !!import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-);
+console.log("[Maps Debug] Key state:", !!import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
 if (!GOOGLE_MAPS_API_KEY) {
   console.error(
     "[Maps Debug] Google Maps API Key is completely missing from the build environment!",
@@ -52,21 +47,55 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // US phone: (XXX) XXX-XXXX  |  XXX-XXX-XXXX  |  XXXXXXXXXX
 const PHONE_RE = /^(?:\(\d{3}\)\s?\d{3}-\d{4}|\d{3}-\d{3}-\d{4}|\d{10})$/;
 
+// Heuristics that flag keyboard-smash / gibberish name words ("qdwds", "sdsd",
+// "vcvcx") while letting real names through. Operates on a single alphabetic
+// token (hyphens stripped). Accented vowels are recognised so Bjørn / José are
+// not false-flagged.
+function isGibberishWord(word: string): boolean {
+  const w = word.replace(/-/g, "").toLowerCase();
+  if (w.length < 3) return false; // too short to judge reliably (Ng, Wu, Li)
+  if (/(.)\1{2,}/u.test(w)) return true; // 3+ identical letters in a row ("aaaa")
+  // More than 3 consonants in a row (4+): impossible in real names ("qdwds",
+  // "vcvcx" → all consonants; "sdsd" → 4-consonant run).
+  if (/[bcdfghjklmnpqrstvwxz]{4,}/.test(w)) return true;
+  // No vowel at all in a 3+ letter word. Vowel set includes accented forms
+  // common in MN names (Bjørn, José, Zoë) so they are not false-flagged.
+  if (!/[aeiouyàáâäãåæèéêëìíîïòóôöõøœùúûüýÿ]/.test(w)) return true;
+  return false;
+}
+
+// A name value can hold multiple tokens ("Mary Jane", "Anne-Marie"). Any token
+// that reads as keyboard smash invalidates the whole field.
+function isGibberishName(value: string): boolean {
+  return value
+    .split(/[\s-]+/)
+    .filter(Boolean)
+    .some(isGibberishWord);
+}
+
 function validate(values: FormValues, addressVerified: boolean): FieldErrors {
   const errors: FieldErrors = {};
 
   const firstName = values.firstName.trim();
   if (!firstName) {
     errors.firstName = "Please enter your first name.";
+  } else if (firstName.length < 2) {
+    errors.firstName = "Please enter your real first name.";
   } else if (!NAME_RE.test(firstName)) {
-    errors.firstName = "Names cannot contain special characters or emojis.";
+    errors.firstName = "Names cannot contain numbers, special characters, or emojis.";
+  } else if (isGibberishName(firstName)) {
+    errors.firstName = "Please enter a valid real name.";
   }
 
   const lastName = values.lastName.trim();
   if (!lastName) {
     errors.lastName = "Please enter your last name.";
+  } else if (lastName.length < 2) {
+    errors.lastName = "Please enter your real last name.";
   } else if (!NAME_RE.test(lastName)) {
-    errors.lastName = "Names cannot contain special characters or emojis.";
+    errors.lastName = "Names cannot contain numbers, special characters, or emojis.";
+  } else if (isGibberishName(lastName)) {
+    errors.lastName = "Please enter a valid real name.";
   }
 
   // Email is optional, but if filled it must be valid.
@@ -82,10 +111,15 @@ function validate(values: FormValues, addressVerified: boolean): FieldErrors {
     errors.phone = "Please enter a valid US phone number.";
   }
 
-  if (!values.address.trim()) {
+  // Address is valid ONLY when it is a verified Google Places selection (proven
+  // by a place_id / coordinates from the dropdown pick). Free-typed strings like
+  // "131vcvcx" are always rejected — there is no manual-entry fallback.
+  const address = values.address.trim();
+  if (!address) {
     errors.address = "Please enter your property address.";
-  } else if (GOOGLE_MAPS_API_KEY && !addressVerified) {
-    errors.address = "Please select your address from the Google suggestions.";
+  } else if (!addressVerified) {
+    errors.address =
+      "Please select your address from the Google suggestions — free-typed addresses aren't accepted.";
   }
 
   return errors;
@@ -108,9 +142,10 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
   // Address ref — passed to Google Places Autocomplete. Plain DOM input ref;
   // does NOT participate in React state on keystrokes.
   const addressInputRef = React.useRef<HTMLInputElement | null>(null);
-  // Records the last formatted_address Google handed back, used only at
-  // submit time. Ref (not state) → no re-renders triggered by Maps activity.
-  const lastVerifiedAddressRef = React.useRef<string>("");
+  // Records the last VERIFIED Google Places pick (formatted_address + its
+  // place_id) — used only at submit time to prove the address is a real
+  // selection, not free-typed text. Ref (not state) → no re-renders from Maps.
+  const lastVerifiedAddressRef = React.useRef<{ formatted: string; placeId: string } | null>(null);
   // Guards against double-submission while the Zapier webhook is in flight.
   // Ref (not state) → no re-render to disable the button visually.
   const submittingRef = React.useRef(false);
@@ -137,7 +172,7 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
           ac = new google.maps.places.Autocomplete(inputEl, {
             types: ["address"],
             componentRestrictions: { country: "us" },
-            fields: ["formatted_address", "address_components"],
+            fields: ["formatted_address", "address_components", "place_id", "geometry"],
           });
         } catch (err) {
           console.warn("[LeadForm] Autocomplete construction failed:", err);
@@ -148,9 +183,14 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
         const listener = ac.addListener("place_changed", () => {
           const place = ac.getPlace();
           const formatted = place.formatted_address?.trim() ?? "";
-          if (!formatted) return;
+          // A genuine dropdown selection always carries a place_id (and usually
+          // coordinates). Bail if either the address text or the proof-of-pick
+          // is missing — that's not a verified selection.
+          const placeId = place.place_id ?? "";
+          const hasCoords = !!place.geometry?.location;
+          if (!formatted || (!placeId && !hasCoords)) return;
           // Sync React state ONCE on a successful pick. No further updates from this path.
-          lastVerifiedAddressRef.current = formatted;
+          lastVerifiedAddressRef.current = { formatted, placeId };
           setValues((prev) =>
             prev.address === formatted ? prev : { ...prev, address: formatted },
           );
@@ -180,8 +220,7 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
   }, []);
 
   const setField =
-    (field: FieldKey) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    (field: FieldKey) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const v = e.target.value;
       setValues((prev) => ({ ...prev, [field]: v }));
       // Clear the error for this field as soon as the user edits it.
@@ -197,12 +236,13 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (submittingRef.current) return; // ignore rapid double-clicks while a request is in flight
-    // Address is "Google-verified" only when its current value matches the
-    // formatted_address from the user's last dropdown pick. Manual typing
-    // after a pick invalidates this → forces re-selection.
+    // Address is "Google-verified" only when a place_id was captured from the
+    // dropdown pick AND the current value still matches that pick's
+    // formatted_address. Manual typing after a pick invalidates this → forces
+    // re-selection.
+    const verified = lastVerifiedAddressRef.current;
     const isAddressVerified =
-      !!lastVerifiedAddressRef.current &&
-      values.address.trim() === lastVerifiedAddressRef.current.trim();
+      !!verified && !!verified.placeId && values.address.trim() === verified.formatted.trim();
     const next = validate(values, isAddressVerified);
     if (Object.keys(next).length > 0) {
       setErrors(next);
@@ -419,9 +459,7 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
       <div className="space-y-1.5">
         <label htmlFor="lead-details" className={labelCls}>
           Additional Details{" "}
-          <span className={isGlass ? "text-white/60" : "text-muted-foreground"}>
-            (optional)
-          </span>
+          <span className={isGlass ? "text-white/60" : "text-muted-foreground"}>(optional)</span>
         </label>
         <textarea
           id="lead-details"
@@ -441,7 +479,9 @@ export function LeadForm({ variant = "light" }: { variant?: "light" | "glass" })
         Get my fair cash offer
         <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
       </button>
-      <p className={`text-[11px] leading-relaxed ${isGlass ? "text-white/70" : "text-muted-foreground"}`}>
+      <p
+        className={`text-[11px] leading-relaxed ${isGlass ? "text-white/70" : "text-muted-foreground"}`}
+      >
         By submitting you agree to receive messages from Twin Cities Home Buyers. Msg &amp; data
         rates may apply. Reply STOP to unsubscribe.
       </p>

@@ -18,6 +18,10 @@
 type GooglePlace = {
   formatted_address?: string;
   address_components?: Array<{ long_name: string; short_name: string; types: string[] }>;
+  // Present only on a real prediction the user picked from the dropdown — used
+  // to prove the address was verified (not free-typed gibberish).
+  place_id?: string;
+  geometry?: { location?: { lat: () => number; lng: () => number } };
 };
 
 export interface GoogleMapsPlacesAutocomplete {
